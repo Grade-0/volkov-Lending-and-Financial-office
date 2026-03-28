@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volkov Lending | GTA RP Loan Tracker</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --panel: #121826;
+      --panel-2: #0f1522;
+      --line: rgba(255,255,255,.08);
+      --text: #eef3ff;
+      --muted: #a7b3c9;
+      --cyan: #43e7ff;
+      --blue: #5d8dff;
+      --green: #42e38b;
+      --yellow: #ffd24d;
+      --red: #ff637d;
+      --shadow: 0 20px 45px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: Inter, Arial, Helvetica, sans-serif; background: radial-gradient(circle at top, rgba(67,231,255,.10), transparent 20%), linear-gradient(180deg, #09101a 0%, #0b0f17 100%); color: var(--text); }
+    body { min-height: 100vh; }
+
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .hero-card, .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(67,231,255,.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(67,231,255,.25);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(67,231,255,.07);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    button, .file-label {
+      border: 0;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 700;
+      transition: .18s ease;
+      font-size: 14px;
+    }
+
+    button:hover, .file-label:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #041018;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .btn-danger {
+      background: rgba(255,99,125,.12);
+      color: #ffd1db;
+      border: 1px solid rgba(255,99,125,.25);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+
+    .stat .value {
+      font-size: clamp(22px, 2.2vw, 30px);
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .panel p.helper {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(67,231,255,.5);
+      box-shadow: 0 0 0 3px rgba(67,231,255,.12);
+    }
+
+    textarea { min-height: 96px; resize: vertical; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .toolbar input, .toolbar select {
+      min-width: 180px;
+      flex: 1;
+    }
+
+    .loan-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .loan-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      padding: 18px;
+    }
+
+    .loan-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .loan-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 0 4px;
+    }
+
+    .loan-meta {
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    .active { background: rgba(67,231,255,.10); color: var(--cyan); border: 1px solid rgba(67,231,255,.2); }
+    .paid { background: rgba(66,227,139,.10); color: var(--green); border: 1px solid rgba(66,227,139,.2); }
+    .late { background: rgba(255,99,125,.12); color: #ffc0cb; border: 1px solid rgba(255,99,125,.24); }
+    .pending { background: rgba(255,210,77,.12); color: var(--yellow); border: 1px solid rgba(255,210,77,.22); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      font-size: 20px;
+    }
+
+    .progress {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      margin-bottom: 8px;
+      border: 1px solid var(--line);
+    }
+
+    .progress > div {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      width: 0%;
+    }
+
+    .loan-notes {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 10px;
+      white-space: pre-wrap;
+    }
+
+    .payment-table {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: .05em;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .loan-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.16);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,.02);
+    }
+
+    .file-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #importFile { display: none; }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 1100px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .wrap { padding: 16px; }
+      .row-2, .metrics, .stats { grid-template-columns: 1fr; }
+      .loan-top { flex-direction: column; }
+      .toolbar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">GTA V RP • Lending Ledger</div>
+        <h1>Track multiple loans across your city.</h1>
+        <p class="sub">Built for roleplay lenders, businesses, and private money handlers. Add borrowers, log payments, check overdue balances, and save everything locally in the browser for a simple GitHub Pages setup.</p>
+        <div class="quick-actions">
+          <button class="btn-primary" id="scrollToFormBtn">Add New Loan</button>
+          <button class="btn-secondary" id="seedDemoBtn">Load Demo Data</button>
+          <button class="btn-secondary" id="exportBtn">Export Data</button>
+          <label class="file-label btn-secondary" for="importFile">Import Data</label>
+          <input id="importFile" type="file" accept="application/json" />
+          <button class="btn-danger" id="clearAllBtn">Clear All</button>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Local browser save</span>
+          <span class="pill">Payment history</span>
+          <span class="pill">Outstanding balance</span>
+          <span class="pill">GitHub Pages ready</span>
+        </div>
+      </div>
+
+      <div class="hero-card stats">
+        <div class="stat">
+          <div class="label">Total Loaned</div>
+          <div class="value" id="statLoaned">$0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Outstanding</div>
+          <div class="value" id="statOutstanding">$0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Overdue Loans</div>
+          <div class="value" id="statOverdue">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Borrowers</div>
+          <div class="value" id="statBorrowers">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <aside class="panel" id="loanFormPanel">
+        <h2 id="formHeading">Add Loan</h2>
+        <p class="helper">Use this to create or update a borrower record. Interest can be included as a percent and will automatically calculate the total owed.</p>
+        <form id="loanForm" class="form-grid">
+          <input type="hidden" id="loanId" />
+
+          <div>
+            <label for="borrowerName">Borrower Name</label>
+            <input id="borrowerName" type="text" placeholder="Example: Tony Russo" required />
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="characterName">Character Name / Alias</label>
+              <input id="characterName" type="text" placeholder="Example: RussoTony88" />
+            </div>
+            <div>
+              <label for="contactInfo">Contact / Discord</label>
+              <input id="contactInfo" type="text" placeholder="Example: @TonyRusso" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="principalAmount">Principal Amount</label>
+              <input id="principalAmount" type="number" min="0" step="1" placeholder="5000" required />
+            </div>
+            <div>
+              <label for="interestRate">Interest %</label>
+              <input id="interestRate" type="number" min="0" step="0.01" placeholder="15" value="0" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="issueDate">Issue Date</label>
+              <input id="issueDate" type="date" required />
+            </div>
+            <div>
+              <label for="dueDate">Due Date</label>
+              <input id="dueDate" type="date" required />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div>
+              <label for="status">Status</label>
+              <select id="status">
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+                <option value="late">Late</option>
+                <option value="paid">Paid</option>
+              </select>
+            </div>
+            <div>
+              <label for="lenderName">Handled By</label>
+              <input id="lenderName" type="text" placeholder="Example: Volkov Lending" />
+            </div>
+          </div>
+
+          <div>
+            <label for="notes">Notes</label>
+            <textarea id="notes" placeholder="Collateral, payment plan, warnings, vehicle title, house key, etc."></textarea>
+          </div>
+
+          <div class="quick-actions" style="margin-top: 0;">
+            <button class="btn-primary" type="submit" id="saveLoanBtn">Save Loan</button>
+            <button class="btn-secondary" type="button" id="resetFormBtn">Reset</button>
+          </div>
+        </form>
+
+        <div class="footer-note">
+          This version is fully static. It saves to this browser using local storage. Export your data to keep backups or move records to another device.
+        </div>
+      </aside>
+
+      <main class="panel">
+        <h2>Loan Records</h2>
+        <p class="helper">Search borrowers, filter status, and log payments without leaving the page.</p>
+
+        <div class="toolbar">
+          <input id="searchInput" type="text" placeholder="Search borrower, alias, contact, lender, notes..." />
+          <select id="statusFilter">
+            <option value="all">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="late">Late</option>
+            <option value="paid">Paid</option>
+            <option value="overdue">Overdue Now</option>
+          </select>
+          <select id="sortBy">
+            <option value="dueSoon">Sort: Due Soon</option>
+            <option value="newest">Sort: Newest</option>
+            <option value="largestBalance">Sort: Largest Balance</option>
+            <option value="borrowerAZ">Sort: Borrower A–Z</option>
+          </select>
+        </div>
+
+        <div id="loanList" class="loan-list"></div>
+      </main>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'gta_rp_loans_v1';
+
+    const els = {
+      statLoaned: document.getElementById('statLoaned'),
+      statOutstanding: document.getElementById('statOutstanding'),
+      statOverdue: document.getElementById('statOverdue'),
+      statBorrowers: document.getElementById('statBorrowers'),
+      loanList: document.getElementById('loanList'),
+      searchInput: document.getElementById('searchInput'),
+      statusFilter: document.getElementById('statusFilter'),
+      sortBy: document.getElementById('sortBy'),
+      loanForm: document.getElementById('loanForm'),
+      loanId: document.getElementById('loanId'),
+      borrowerName: document.getElementById('borrowerName'),
+      characterName: document.getElementById('characterName'),
+      contactInfo: document.getElementById('contactInfo'),
+      principalAmount: document.getElementById('principalAmount'),
+      interestRate: document.getElementById('interestRate'),
+      issueDate: document.getElementById('issueDate'),
+      dueDate: document.getElementById('dueDate'),
+      status: document.getElementById('status'),
+      lenderName: document.getElementById('lenderName'),
+      notes: document.getElementById('notes'),
+      formHeading: document.getElementById('formHeading'),
+      saveLoanBtn: document.getElementById('saveLoanBtn'),
+      resetFormBtn: document.getElementById('resetFormBtn'),
+      exportBtn: document.getElementById('exportBtn'),
+      importFile: document.getElementById('importFile'),
+      clearAllBtn: document.getElementById('clearAllBtn'),
+      seedDemoBtn: document.getElementById('seedDemoBtn'),
+      scrollToFormBtn: document.getElementById('scrollToFormBtn'),
+      loanFormPanel: document.getElementById('loanFormPanel')
+    };
+
+    let loans = loadLoans();
+
+    function loadLoans() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (error) {
+        console.error('Failed to load loans:', error);
+        return [];
+      }
+    }
+
+    function saveLoans() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(loans));
+    }
+
+    function currency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+      }).format(Number(value || 0));
+    }
+
+    function todayISO() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function sanitize(text = '') {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function totalOwed(loan) {
+      return Math.round(Number(loan.principalAmount || 0) * (1 + Number(loan.interestRate || 0) / 100));
+    }
+
+    function totalPaid(loan) {
+      return (loan.payments || []).reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
+    }
+
+    function balanceRemaining(loan) {
+      return Math.max(0, totalOwed(loan) - totalPaid(loan));
+    }
+
+    function isOverdue(loan) {
+      if (!loan.dueDate) return false;
+      if (loan.status === 'paid') return false;
+      return loan.dueDate < todayISO() && balanceRemaining(loan) > 0;
+    }
+
+    function effectiveStatus(loan) {
+      if (balanceRemaining(loan) <= 0) return 'paid';
+      if (isOverdue(loan)) return 'late';
+      return loan.status || 'active';
+    }
+
+    function prettyDate(value) {
+      if (!value) return '—';
+      const [year, month, day] = value.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function paymentCompletion(loan) {
+      const owed = totalOwed(loan);
+      if (!owed) return 0;
+      return Math.min(100, Math.round((totalPaid(loan) / owed) * 100));
+    }
+
+    function updateStats() {
+      const totalLoaned = loans.reduce((sum, loan) => sum + Number(loan.principalAmount || 0), 0);
+      const outstanding = loans.reduce((sum, loan) => sum + balanceRemaining(loan), 0);
+      const overdue = loans.filter(isOverdue).length;
+      const borrowers = new Set(loans.map(loan => `${loan.borrowerName}`.trim()).filter(Boolean)).size;
+
+      els.statLoaned.textContent = currency(totalLoaned);
+      els.statOutstanding.textContent = currency(outstanding);
+      els.statOverdue.textContent = overdue;
+      els.statBorrowers.textContent = borrowers;
+    }
+
+    function renderLoans() {
+      updateStats();
+
+      const search = els.searchInput.value.trim().toLowerCase();
+      const filter = els.statusFilter.value;
+      const sort = els.sortBy.value;
+
+      let filtered = loans.filter(loan => {
+        const haystack = [
+          loan.borrowerName,
+          loan.characterName,
+          loan.contactInfo,
+          loan.lenderName,
+          loan.notes
+        ].join(' ').toLowerCase();
+
+        const matchesSearch = !search || haystack.includes(search);
+        const currentStatus = effectiveStatus(loan);
+        const matchesFilter =
+          filter === 'all' ? true :
+          filter === 'overdue' ? isOverdue(loan) :
+          currentStatus === filter;
+
+        return matchesSearch && matchesFilter;
+      });
+
+      filtered.sort((a, b) => {
+        switch (sort) {
+          case 'newest':
+            return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+          case 'largestBalance':
+            return balanceRemaining(b) - balanceRemaining(a);
+          case 'borrowerAZ':
+            return (a.borrowerName || '').localeCompare(b.borrowerName || '');
+          case 'dueSoon':
+          default:
+            return new Date(a.dueDate || '9999-12-31') - new Date(b.dueDate || '9999-12-31');
+        }
+      });
+
+      if (!filtered.length) {
+        els.loanList.innerHTML = `
+          <div class="empty">
+            <h3 style="margin-top:0; color: var(--text);">No matching loans</h3>
+            <p style="margin-bottom:0;">Try another search, change the filter, or add a new borrower to start tracking your RP deals.</p>
+          </div>
+        `;
+        return;
+      }
+
+      els.loanList.innerHTML = filtered.map(loan => {
+        const owed = totalOwed(loan);
+        const paid = totalPaid(loan);
+        const remaining = balanceRemaining(loan);
+        const progress = paymentCompletion(loan);
+        const status = effectiveStatus(loan);
+        const statusClass = status === 'paid' ? 'paid' : status === 'late' ? 'late' : status === 'pending' ? 'pending' : 'active';
+        const paymentRows = (loan.payments || []).length
+          ? (loan.payments || []).slice().reverse().map(payment => `
+              <tr>
+                <td>${prettyDate(payment.date)}</td>
+                <td>${currency(payment.amount)}</td>
+                <td>${sanitize(payment.note || '—')}</td>
+                <td><button class="btn-danger" onclick="deletePayment('${loan.id}', '${payment.id}')">Delete</button></td>
+              </tr>
+            `).join('')
+          : `<tr><td colspan="4" style="color: var(--muted);">No payments logged yet.</td></tr>`;
+
+        return `
+          <article class="loan-card">
+            <div class="loan-top">
+              <div>
+                <div class="loan-title">${sanitize(loan.borrowerName || 'Unnamed Borrower')}</div>
+                <div class="loan-meta">
+                  <span>Alias: ${sanitize(loan.characterName || '—')}</span>
+                  <span>Contact: ${sanitize(loan.contactInfo || '—')}</span>
+                  <span>Handled by: ${sanitize(loan.lenderName || '—')}</span>
+                </div>
+              </div>
+              <span class="badge ${statusClass}">${status}</span>
+            </div>
+
+            <div class="metrics">
+              <div class="metric">
+                <span>Principal</span>
+                <strong>${currency(loan.principalAmount)}</strong>
+              </div>
+              <div class="metric">
+                <span>Total Owed</span>
+                <strong>${currency(owed)}</strong>
+              </div>
+              <div class="metric">
+                <span>Paid</span>
+                <strong>${currency(paid)}</strong>
+              </div>
+              <div class="metric">
+                <span>Balance</span>
+                <strong>${currency(remaining)}</strong>
+              </div>
+            </div>
+
+            <div class="progress"><div style="width:${progress}%"></div></div>
+            <div class="loan-meta">
+              <span>Issue: ${prettyDate(loan.issueDate)}</span>
+              <span>Due: ${prettyDate(loan.dueDate)}</span>
+              <span>Interest: ${Number(loan.interestRate || 0)}%</span>
+              <span>Progress: ${progress}%</span>
+            </div>
+
+            ${loan.notes ? `<div class="loan-notes">${sanitize(loan.notes)}</div>` : ''}
+
+            <div class="loan-actions">
+              <button class="btn-primary" onclick="addPaymentPrompt('${loan.id}')">Log Payment</button>
+              <button class="btn-secondary" onclick="editLoan('${loan.id}')">Edit Loan</button>
+              <button class="btn-secondary" onclick="markPaid('${loan.id}')">Mark Paid</button>
+              <button class="btn-danger" onclick="deleteLoan('${loan.id}')">Delete Loan</button>
+            </div>
+
+            <div class="payment-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>${paymentRows}</tbody>
+              </table>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function resetForm() {
+      els.loanForm.reset();
+      els.loanId.value = '';
+      els.formHeading.textContent = 'Add Loan';
+      els.saveLoanBtn.textContent = 'Save Loan';
+      els.issueDate.value = todayISO();
+      const nextWeek = new Date();
+      nextWeek.setDate(nextWeek.getDate() + 7);
+      els.dueDate.value = nextWeek.toISOString().split('T')[0];
+      els.status.value = 'active';
+    }
+
+    function editLoan(id) {
+      const loan = loans.find(item => item.id === id);
+      if (!loan) return;
+
+      els.loanId.value = loan.id;
+      els.borrowerName.value = loan.borrowerName || '';
+      els.characterName.value = loan.characterName || '';
+      els.contactInfo.value = loan.contactInfo || '';
+      els.principalAmount.value = loan.principalAmount || '';
+      els.interestRate.value = loan.interestRate || 0;
+      els.issueDate.value = loan.issueDate || '';
+      els.dueDate.value = loan.dueDate || '';
+      els.status.value = loan.status || 'active';
+      els.lenderName.value = loan.lenderName || '';
+      els.notes.value = loan.notes || '';
+      els.formHeading.textContent = 'Edit Loan';
+      els.saveLoanBtn.textContent = 'Update Loan';
+      els.loanFormPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function deleteLoan(id) {
+      const loan = loans.find(item => item.id === id);
+      if (!loan) return;
+      if (!confirm(`Delete the loan for ${loan.borrowerName}?`)) return;
+      loans = loans.filter(item => item.id !== id);
+      saveLoans();
+      renderLoans();
+      if (els.loanId.value === id) resetForm();
+    }
+
+    function markPaid(id) {
+      const loan = loans.find(item => item.id === id);
+      if (!loan) return;
+      const remaining = balanceRemaining(loan);
+      if (remaining > 0) {
+        const shouldAutoPay = confirm(`This loan still has ${currency(remaining)} remaining. Add it as a final payment and mark it paid?`);
+        if (shouldAutoPay) {
+          loan.payments = loan.payments || [];
+          loan.payments.push({
+            id: crypto.randomUUID(),
+            amount: remaining,
+            date: todayISO(),
+            note: 'Final payoff'
+          });
+        }
+      }
+      loan.status = 'paid';
+      saveLoans();
+      renderLoans();
+    }
+
+    function addPaymentPrompt(id) {
+      const loan = loans.find(item => item.id === id);
+      if (!loan) return;
+
+      const amount = prompt(`Enter payment amount for ${loan.borrowerName}:`, '0');
+      if (amount === null) return;
+      const numericAmount = Number(amount);
+      if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+        alert('Please enter a valid payment amount.');
+        return;
+      }
+
+      const date = prompt('Payment date (YYYY-MM-DD):', todayISO()) || todayISO();
+      const note = prompt('Payment note (optional):', '') || '';
+
+      loan.payments = loan.payments || [];
+      loan.payments.push({
+        id: crypto.randomUUID(),
+        amount: numericAmount,
+        date,
+        note
+      });
+
+      if (balanceRemaining(loan) <= 0) {
+        loan.status = 'paid';
+      } else if (isOverdue(loan)) {
+        loan.status = 'late';
+      } else if (loan.status === 'paid') {
+        loan.status = 'active';
+      }
+
+      saveLoans();
+      renderLoans();
+    }
+
+    function deletePayment(loanId, paymentId) {
+      const loan = loans.find(item => item.id === loanId);
+      if (!loan || !loan.payments) return;
+      loan.payments = loan.payments.filter(payment => payment.id !== paymentId);
+      if (balanceRemaining(loan) > 0 && loan.status === 'paid') {
+        loan.status = isOverdue(loan) ? 'late' : 'active';
+      }
+      saveLoans();
+      renderLoans();
+    }
+
+    function exportData() {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        loans
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `gta-rp-loans-${todayISO()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          const importedLoans = Array.isArray(parsed) ? parsed : parsed.loans;
+          if (!Array.isArray(importedLoans)) throw new Error('Invalid file format');
+          loans = importedLoans;
+          saveLoans();
+          renderLoans();
+          resetForm();
+          alert('Loan data imported successfully.');
+        } catch (error) {
+          alert('Could not import that file. Make sure it is a valid loan tracker JSON export.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function seedDemoData() {
+      if (loans.length && !confirm('This will add demo loans to your existing records. Continue?')) return;
+      const demo = [
+        {
+          id: crypto.randomUUID(),
+          borrowerName: 'Marco Bellini',
+          characterName: 'Marco B.',
+          contactInfo: '@marco_b',
+          principalAmount: 25000,
+          interestRate: 20,
+          issueDate: todayISO(),
+          dueDate: addDays(10),
+          status: 'active',
+          lenderName: 'Volkov Lending',
+          notes: 'Borrower used a Sultan Classic as collateral. Weekly installments approved.',
+          createdAt: new Date().toISOString(),
+          payments: [{ id: crypto.randomUUID(), amount: 5000, date: todayISO(), note: 'Initial payment' }]
+        },
+        {
+          id: crypto.randomUUID(),
+          borrowerName: 'Nina Costa',
+          characterName: 'Nina C.',
+          contactInfo: '@ninacosta',
+          principalAmount: 12000,
+          interestRate: 10,
+          issueDate: addDays(-14),
+          dueDate: addDays(-2),
+          status: 'late',
+          lenderName: 'Volkov Lending',
+          notes: 'Late on payment. Follow-up RP scheduled at city hall lot.',
+          createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
+          payments: [{ id: crypto.randomUUID(), amount: 3000, date: addDays(-7), note: 'Partial payment' }]
+        }
+      ];
+      loans = loans.concat(demo);
+      saveLoans();
+      renderLoans();
+    }
+
+    function addDays(days) {
+      const date = new Date();
+      date.setDate(date.getDate() + days);
+      return date.toISOString().split('T')[0];
+    }
+
+    els.loanForm.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const existingId = els.loanId.value;
+      const payload = {
+        id: existingId || crypto.randomUUID(),
+        borrowerName: els.borrowerName.value.trim(),
+        characterName: els.characterName.value.trim(),
+        contactInfo: els.contactInfo.value.trim(),
+        principalAmount: Number(els.principalAmount.value || 0),
+        interestRate: Number(els.interestRate.value || 0),
+        issueDate: els.issueDate.value,
+        dueDate: els.dueDate.value,
+        status: els.status.value,
+        lenderName: els.lenderName.value.trim(),
+        notes: els.notes.value.trim(),
+        createdAt: existingId ? (loans.find(item => item.id === existingId)?.createdAt || new Date().toISOString()) : new Date().toISOString(),
+        payments: existingId ? (loans.find(item => item.id === existingId)?.payments || []) : []
+      };
+
+      if (!payload.borrowerName || !payload.principalAmount || !payload.issueDate || !payload.dueDate) {
+        alert('Please complete the required loan fields.');
+        return;
+      }
+
+      if (existingId) {
+        loans = loans.map(loan => loan.id === existingId ? payload : loan);
+      } else {
+        loans.unshift(payload);
+      }
+
+      saveLoans();
+      renderLoans();
+      resetForm();
+    });
+
+    els.searchInput.addEventListener('input', renderLoans);
+    els.statusFilter.addEventListener('change', renderLoans);
+    els.sortBy.addEventListener('change', renderLoans);
+    els.resetFormBtn.addEventListener('click', resetForm);
+    els.exportBtn.addEventListener('click', exportData);
+    els.importFile.addEventListener('change', event => {
+      const file = event.target.files?.[0];
+      if (file) importData(file);
+      event.target.value = '';
+    });
+    els.clearAllBtn.addEventListener('click', () => {
+      if (!loans.length) return;
+      if (!confirm('Delete every loan record from this browser?')) return;
+      loans = [];
+      saveLoans();
+      renderLoans();
+      resetForm();
+    });
+    els.seedDemoBtn.addEventListener('click', seedDemoData);
+    els.scrollToFormBtn.addEventListener('click', () => {
+      els.loanFormPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      els.borrowerName.focus();
+    });
+
+    window.editLoan = editLoan;
+    window.deleteLoan = deleteLoan;
+    window.markPaid = markPaid;
+    window.addPaymentPrompt = addPaymentPrompt;
+    window.deletePayment = deletePayment;
+
+    resetForm();
+    renderLoans();
+  </script>
+</body>
+</html>
