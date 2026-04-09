@@ -4,34 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Volkov Lending & Financial</title>
+  <meta name="description" content="Volkov Lending & Financial shared office portal powered by Supabase." />
   <style>
     :root {
-      --bg: #050505;
-      --bg-soft: #0c0c0d;
-      --panel: rgba(15, 15, 17, 0.92);
-      --panel-2: rgba(22, 22, 25, 0.96);
-      --panel-3: rgba(30, 30, 34, 0.9);
-      --line: rgba(255, 215, 120, 0.18);
-      --line-strong: rgba(255, 215, 120, 0.34);
+      --bg: #050506;
+      --bg-soft: #0b0b0d;
+      --panel: rgba(12, 12, 14, 0.95);
+      --panel-2: rgba(18, 18, 22, 0.96);
+      --panel-3: rgba(28, 28, 32, 0.96);
+      --line: rgba(255, 215, 120, 0.14);
+      --line-strong: rgba(255, 215, 120, 0.26);
       --gold-1: #ffefba;
       --gold-2: #e0b550;
       --gold-3: #a87417;
-      --gold-4: #6a4710;
-      --silver-1: #f0f0f2;
-      --silver-2: #bfc4cb;
-      --silver-3: #7f8590;
-      --text: #f6f2e8;
-      --text-soft: #c9c0af;
-      --text-muted: #978d7a;
+      --silver-1: #f4f4f6;
+      --silver-2: #c6c9d0;
+      --text: #f5f1e8;
+      --text-soft: #cbc2b1;
+      --text-muted: #9b927e;
       --success: #97d39e;
-      --danger: #ff8989;
-      --warning: #ffd880;
-      --shadow-gold: 0 18px 40px rgba(200, 147, 36, 0.14);
-      --shadow-dark: 0 30px 70px rgba(0, 0, 0, 0.55);
+      --danger: #ff8f8f;
+      --warning: #ffd480;
       --radius-xl: 24px;
       --radius-lg: 18px;
       --radius-md: 14px;
       --radius-sm: 10px;
+      --shadow-dark: 0 28px 64px rgba(0, 0, 0, 0.52);
+      --shadow-gold: 0 16px 32px rgba(194, 145, 32, 0.16);
       --transition: 180ms ease;
     }
 
@@ -39,13 +38,13 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(197, 142, 35, 0.1), transparent 34%),
-        radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 18%),
-        linear-gradient(180deg, #040404 0%, #090909 40%, #070707 100%);
+        radial-gradient(circle at top left, rgba(224,181,80,0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(255,255,255,0.04), transparent 22%),
+        linear-gradient(180deg, #040404 0%, #080809 38%, #060607 100%);
       color: var(--text);
-      min-height: 100vh;
       letter-spacing: 0.01em;
     }
 
@@ -54,122 +53,116 @@
       position: fixed;
       inset: 0;
       background:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
       background-size: 44px 44px;
       opacity: 0.08;
       pointer-events: none;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.2));
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.18));
     }
 
-    a { color: inherit; }
-    button, input, select, textarea {
-      font: inherit;
-    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
 
     .container {
       width: min(1360px, calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .status-strip {
+    .top-strip {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 80;
       backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(8,8,9,0.92), rgba(8,8,9,0.78));
+      background: linear-gradient(180deg, rgba(8,8,9,0.95), rgba(8,8,9,0.8));
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .status-strip-inner {
+    .top-strip-inner {
       display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
       padding: 14px 0;
     }
 
-    .storage-pill {
+    .pill {
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-height: 44px;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255,255,255,0.08);
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), var(--shadow-gold);
-      color: var(--text);
-      min-height: 44px;
+      color: var(--text-soft);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
-    .storage-pill .dot {
+    .pill strong { color: var(--text); }
+
+    .dot {
       width: 11px;
       height: 11px;
       border-radius: 999px;
+      background: var(--warning);
+      box-shadow: 0 0 0 5px rgba(255, 212, 128, 0.1);
+      flex: 0 0 auto;
+    }
+
+    .dot.success {
       background: var(--success);
-      box-shadow: 0 0 0 5px rgba(151, 211, 158, 0.12), 0 0 18px rgba(151, 211, 158, 0.32);
+      box-shadow: 0 0 0 5px rgba(151, 211, 158, 0.12);
     }
 
-    .storage-pill.blocked .dot {
+    .dot.danger {
       background: var(--danger);
-      box-shadow: 0 0 0 5px rgba(255, 137, 137, 0.12), 0 0 18px rgba(255, 137, 137, 0.28);
+      box-shadow: 0 0 0 5px rgba(255, 143, 143, 0.12);
     }
 
-    .status-meta {
+    .top-actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
-      color: var(--text-soft);
-      font-size: 0.95rem;
+      flex-wrap: wrap;
     }
 
-    .mini-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--text-soft);
-    }
-
-    header.hero {
-      padding: 38px 0 20px;
+    .hero {
+      padding: 36px 0 20px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.85fr;
-      gap: 28px;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
       align-items: stretch;
     }
 
     .panel {
-      background: linear-gradient(180deg, rgba(17,17,18,0.9), rgba(12,12,13,0.96));
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-dark), inset 0 1px 0 rgba(255,255,255,0.04);
       position: relative;
       overflow: hidden;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(17,17,18,0.92), rgba(11,11,12,0.98));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-dark), inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
     .panel::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.03) 35%, transparent 60%);
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.03) 38%, transparent 64%);
       pointer-events: none;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     .hero-copy {
-      padding: 34px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
+      gap: 18px;
       justify-content: center;
-      gap: 22px;
       min-height: 100%;
     }
 
@@ -177,26 +170,26 @@
       display: inline-flex;
       width: fit-content;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       padding: 9px 14px;
       border-radius: 999px;
       color: var(--gold-1);
-      border: 1px solid rgba(255, 214, 102, 0.22);
-      background: linear-gradient(180deg, rgba(234, 193, 92, 0.12), rgba(130, 88, 15, 0.08));
-      letter-spacing: 0.08em;
       font-size: 0.78rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 800;
+      border: 1px solid rgba(255, 214, 102, 0.22);
+      background: linear-gradient(180deg, rgba(234,193,92,0.11), rgba(130,88,15,0.08));
     }
 
     h1 {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
       line-height: 0.98;
       letter-spacing: 0.02em;
       text-transform: uppercase;
-      background: linear-gradient(180deg, var(--silver-1), var(--silver-2) 46%, var(--gold-2) 100%);
+      background: linear-gradient(180deg, var(--silver-1), var(--silver-2) 54%, var(--gold-2) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -205,77 +198,30 @@
 
     .subtitle {
       color: var(--gold-1);
-      font-weight: 600;
-      font-size: 1.04rem;
-      letter-spacing: 0.07em;
+      font-size: 1.03rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     .hero-copy p {
       margin: 0;
-      max-width: 70ch;
       color: var(--text-soft);
       line-height: 1.7;
-      font-size: 1.02rem;
+      max-width: 72ch;
     }
 
     .hero-actions {
       display: flex;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      border-radius: 14px;
-      padding: 13px 18px;
-      min-height: 48px;
-      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), opacity var(--transition);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.015em;
-      text-decoration: none;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-    .btn-gold {
-      color: #1b1304;
-      background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
-      box-shadow: 0 16px 28px rgba(184, 139, 44, 0.24), inset 0 1px 0 rgba(255,255,255,0.45);
-    }
-
-    .btn-ghost {
-      color: var(--text);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-
-    .btn-danger {
-      color: #ffe8e8;
-      background: linear-gradient(180deg, rgba(138, 30, 30, 0.75), rgba(96, 18, 18, 0.92));
-      border: 1px solid rgba(255, 135, 135, 0.18);
-    }
-
-    .btn-silver {
-      color: #090909;
-      background: linear-gradient(180deg, var(--silver-1), var(--silver-2));
-      box-shadow: 0 14px 24px rgba(240,240,242,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
     }
 
     .hero-logo {
-      min-height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 100%;
       padding: 26px;
       background:
         radial-gradient(circle at top center, rgba(255,214,102,0.12), transparent 50%),
@@ -284,8 +230,8 @@
 
     .hero-logo img {
       width: min(100%, 430px);
-      filter: drop-shadow(0 18px 28px rgba(0,0,0,0.52)) drop-shadow(0 0 26px rgba(220, 166, 48, 0.14));
       display: block;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,0.52)) drop-shadow(0 0 26px rgba(220, 166, 48, 0.14));
     }
 
     .notice {
@@ -293,131 +239,61 @@
       padding: 18px 20px;
       border-radius: var(--radius-lg);
       border: 1px solid rgba(255,214,102,0.18);
-      background: linear-gradient(180deg, rgba(103, 72, 15, 0.26), rgba(38, 28, 6, 0.18));
+      background: linear-gradient(180deg, rgba(103,72,15,0.26), rgba(38,28,6,0.18));
       color: #f3ead2;
       line-height: 1.6;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
-    .notice strong {
-      color: var(--gold-1);
-      font-weight: 800;
-    }
+    .notice strong { color: var(--gold-1); }
 
-    section {
+    .auth-section, .services-section, .stats-section, .main-grid-section {
       padding: 20px 0;
     }
 
-    .section-header {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: end;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .section-header h2 {
-      margin: 0;
-      font-size: clamp(1.55rem, 3vw, 2.3rem);
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--silver-1);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .section-header p {
-      margin: 0;
-      color: var(--text-muted);
-      max-width: 70ch;
-      line-height: 1.65;
-    }
-
-    .services-grid,
-    .stats-grid {
+    .auth-grid {
       display: grid;
-      gap: 16px;
-    }
-
-    .services-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .service-card,
-    .stat-card {
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, rgba(20,20,22,0.98), rgba(13,13,15,0.94));
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: var(--shadow-dark);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before,
-    .stat-card::before {
-      content: "";
-      position: absolute;
-      inset: auto -30% 70% auto;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(255,214,102,0.12), transparent 65%);
-      pointer-events: none;
-    }
-
-    .service-card:hover,
-    .stat-card:hover,
-    .records-table tbody tr:hover,
-    .record-card:hover {
-      border-color: rgba(255,214,102,0.22);
-      box-shadow: 0 24px 40px rgba(0,0,0,0.46), 0 0 0 1px rgba(255,214,102,0.08);
-    }
-
-    .service-card h3,
-    .stat-label {
-      margin: 0 0 10px;
-      color: var(--gold-1);
-      font-size: 1.02rem;
-      letter-spacing: 0.02em;
-    }
-
-    .service-card p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.65;
-    }
-
-    .stat-value {
-      font-size: clamp(1.55rem, 4vw, 2.3rem);
-      font-weight: 800;
-      color: var(--silver-1);
-      letter-spacing: 0.02em;
-    }
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: 420px minmax(0, 1fr);
-      gap: 22px;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 20px;
       align-items: start;
     }
 
-    .form-panel,
-    .records-panel {
+    .auth-panel, .setup-panel, .form-panel, .records-panel {
       padding: 24px;
     }
 
     .panel-title {
       margin: 0 0 8px;
-      font-size: 1.18rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
       color: var(--gold-1);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 1.12rem;
     }
 
     .panel-copy {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       color: var(--text-muted);
       line-height: 1.65;
+    }
+
+    .auth-status-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .auth-state {
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .auth-state strong { color: var(--text); }
+
+    .auth-form {
+      display: grid;
+      gap: 14px;
     }
 
     .form-grid {
@@ -444,13 +320,11 @@
       font-size: 0.94rem;
     }
 
-    .field label .required {
-      color: var(--gold-1);
-    }
+    .required { color: var(--gold-1); }
 
     .field input,
-    .field textarea,
-    .field select {
+    .field select,
+    .field textarea {
       width: 100%;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.08);
@@ -462,29 +336,29 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
-    .field textarea {
-      min-height: 108px;
-      resize: vertical;
-    }
-
     .field input::placeholder,
     .field textarea::placeholder {
       color: #7f7667;
     }
 
     .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
+    .field select:focus,
+    .field textarea:focus {
       border-color: rgba(255,214,102,0.34);
       box-shadow: 0 0 0 4px rgba(255,214,102,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
       background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
     }
 
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
     .field.invalid input,
-    .field.invalid textarea,
-    .field.invalid select {
-      border-color: rgba(255, 137, 137, 0.4);
-      box-shadow: 0 0 0 4px rgba(255, 137, 137, 0.08);
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: rgba(255,143,143,0.4);
+      box-shadow: 0 0 0 4px rgba(255,143,143,0.08);
     }
 
     .field-help {
@@ -500,48 +374,188 @@
       line-height: 1.35;
     }
 
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 13px 18px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.015em;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), opacity var(--transition);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .btn-gold {
+      color: #1b1304;
+      background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+      box-shadow: 0 16px 28px rgba(184,139,44,0.24), inset 0 1px 0 rgba(255,255,255,0.45);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .btn-danger {
+      color: #ffe8e8;
+      background: linear-gradient(180deg, rgba(138,30,30,0.75), rgba(96,18,18,0.92));
+      border: 1px solid rgba(255, 135, 135, 0.18);
+    }
+
+    .btn-silver {
+      color: #090909;
+      background: linear-gradient(180deg, var(--silver-1), var(--silver-2));
+      box-shadow: 0 14px 24px rgba(240,240,242,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+
+    .setup-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .setup-item {
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.018));
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    .setup-item strong { color: var(--silver-1); }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--silver-1);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 74ch;
+    }
+
+    .services-grid, .stats-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .service-card, .stat-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(20,20,22,0.98), rgba(13,13,15,0.94));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-dark);
+    }
+
+    .service-card::before, .stat-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30% 70% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,214,102,0.12), transparent 65%);
+      pointer-events: none;
+    }
+
+    .service-card h3, .stat-label {
+      margin: 0 0 10px;
+      color: var(--gold-1);
+      font-size: 1.02rem;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    .stat-value {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 800;
+      color: var(--silver-1);
+      letter-spacing: 0.02em;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
     .form-footer {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       padding-top: 10px;
       border-top: 1px solid rgba(255,255,255,0.06);
       margin-top: 6px;
     }
 
-    .form-state {
+    .form-state, .toolbar-note {
       color: var(--text-muted);
       font-size: 0.92rem;
-    }
-
-    .records-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
+      line-height: 1.5;
     }
 
     .toolbar-group {
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .records-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
     .search-wrap {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
       flex: 1;
       min-width: min(100%, 360px);
-      flex-wrap: wrap;
     }
 
     .search-wrap input,
-    .search-wrap select,
-    .toolbar-group select {
+    .search-wrap select {
       min-height: 46px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.08);
@@ -549,43 +563,11 @@
       color: var(--text);
       padding: 0 14px;
       outline: none;
-      min-width: 0;
     }
 
     .search-wrap input {
       flex: 1;
       min-width: 240px;
-    }
-
-    .records-shell {
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(9,9,10,0.86), rgba(16,16,18,0.9));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-    }
-
-    .records-scroll {
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(224, 181, 80, 0.55) rgba(255,255,255,0.06);
-    }
-
-    .records-scroll::-webkit-scrollbar {
-      height: 12px;
-    }
-
-    .records-scroll::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.05);
-    }
-
-    .records-scroll::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, rgba(255,239,186,0.95), rgba(168,116,23,0.95));
-      border-radius: 999px;
-      border: 2px solid rgba(11,11,12,0.9);
     }
 
     .records-scroll-hint {
@@ -599,12 +581,38 @@
 
     .records-scroll-hint span {
       color: var(--gold-1);
-      font-weight: 700;
+      font-weight: 800;
+    }
+
+    .records-shell {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(9,9,10,0.86), rgba(16,16,18,0.9));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      margin-top: 14px;
+    }
+
+    .records-scroll {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(224,181,80,0.55) rgba(255,255,255,0.06);
+    }
+
+    .records-scroll::-webkit-scrollbar { height: 12px; }
+    .records-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .records-scroll::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(255,239,186,0.95), rgba(168,116,23,0.95));
+      border-radius: 999px;
+      border: 2px solid rgba(11,11,12,0.9);
     }
 
     .records-table {
       width: 100%;
-      min-width: 1120px;
+      min-width: 1140px;
       border-collapse: collapse;
     }
 
@@ -641,14 +649,6 @@
       display: inline-block;
     }
 
-    .records-table tbody tr {
-      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .records-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
     .record-primary {
       display: grid;
       gap: 4px;
@@ -676,7 +676,7 @@
       padding: 7px 11px;
       border-radius: 999px;
       font-size: 0.78rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       border: 1px solid rgba(255,255,255,0.08);
@@ -689,7 +689,7 @@
     .badge.pending-interview,
     .badge.awaiting-additional-information {
       color: #ffe3a7;
-      background: rgba(145, 105, 20, 0.2);
+      background: rgba(145,105,20,0.2);
       border-color: rgba(255,214,102,0.14);
     }
 
@@ -697,20 +697,20 @@
     .badge.active-loan,
     .badge.closed {
       color: #caefcf;
-      background: rgba(35, 114, 47, 0.22);
+      background: rgba(35,114,47,0.22);
       border-color: rgba(151,211,158,0.16);
     }
 
     .badge.denied {
       color: #ffd0d0;
-      background: rgba(131, 28, 28, 0.22);
+      background: rgba(131,28,28,0.22);
       border-color: rgba(255,137,137,0.16);
     }
 
     .row-actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .row-actions .btn {
@@ -744,9 +744,9 @@
 
     .record-card-top {
       display: flex;
-      gap: 12px;
       align-items: start;
       justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -763,13 +763,7 @@
       flex-wrap: wrap;
     }
 
-    .muted {
-      color: var(--text-muted);
-    }
-
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     .toast-stack {
       position: fixed;
@@ -777,7 +771,7 @@
       bottom: 16px;
       display: grid;
       gap: 10px;
-      z-index: 90;
+      z-index: 110;
       width: min(380px, calc(100% - 24px));
     }
 
@@ -821,12 +815,10 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 80;
+      z-index: 100;
     }
 
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
     .modal {
       width: min(980px, 100%);
@@ -839,9 +831,7 @@
       position: relative;
     }
 
-    .modal.small {
-      width: min(580px, 100%);
-    }
+    .modal.small { width: min(580px, 100%); }
 
     .modal-header,
     .modal-body,
@@ -878,12 +868,12 @@
     .icon-btn {
       width: 40px;
       height: 40px;
-      flex: 0 0 auto;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.04);
       color: var(--text);
       cursor: pointer;
+      flex: 0 0 auto;
     }
 
     .detail-grid {
@@ -931,19 +921,13 @@
     .modal-footer {
       border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
       position: sticky;
       bottom: 0;
       background: linear-gradient(180deg, rgba(18,18,19,0.94), rgba(18,18,19,0.98));
-    }
-
-    .footer-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
     }
 
     .import-summary {
@@ -965,40 +949,32 @@
 
     .count-line:last-child { border-bottom: none; }
 
-    .toolbar-note {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-
     .sr-only {
       position: absolute;
       width: 1px;
       height: 1px;
       overflow: hidden;
-      clip: rect(0, 0, 0, 0);
+      clip: rect(0,0,0,0);
       clip-path: inset(50%);
       white-space: nowrap;
     }
 
     @media (max-width: 1120px) {
       .hero-grid,
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-logo {
-        min-height: 320px;
-      }
+      .auth-grid,
+      .main-grid,
+      .stats-grid,
       .services-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 760px) {
-      .container {
-        width: min(100% - 20px, 1360px);
-      }
-      .status-strip-inner,
+      .container { width: min(100% - 20px, 1360px); }
+      .top-strip-inner,
       .hero-copy,
+      .auth-panel,
+      .setup-panel,
       .form-panel,
       .records-panel,
       .modal-header,
@@ -1008,46 +984,36 @@
         padding-right: 18px;
       }
       .field-row,
-      .detail-grid,
-      .services-grid,
-      .stats-grid {
+      .detail-grid {
         grid-template-columns: 1fr;
       }
-      .records-table {
-        display: none;
-      }
-      .record-cards {
-        display: grid;
-      }
+      .records-table { display: none; }
+      .record-cards { display: grid; }
       .hero-actions,
       .form-footer,
-      .records-toolbar {
+      .records-toolbar,
+      .top-actions {
         flex-direction: column;
         align-items: stretch;
       }
-      .search-wrap input {
-        min-width: 100%;
-      }
-      .modal-footer {
-        align-items: stretch;
-      }
+      .search-wrap input { min-width: 100%; }
+      .modal-footer { align-items: stretch; }
     }
   </style>
 </head>
 <body>
-  <div class="status-strip">
-    <div class="container status-strip-inner">
-      <div id="storageBanner" class="storage-pill" aria-live="polite">
-        <span class="dot" aria-hidden="true"></span>
+  <div class="top-strip">
+    <div class="container top-strip-inner">
+      <div class="pill" id="connectionPill">
+        <span class="dot" id="connectionDot"></span>
         <div>
-          <strong id="storageTitle">Storage Available</strong><br />
-          <span id="storageText">Records will persist on this browser after closing and reopening the page.</span>
+          <strong id="connectionTitle">Supabase not configured</strong><br />
+          <span id="connectionText">Add your Supabase URL and publishable key to connect shared data.</span>
         </div>
       </div>
-      <div class="status-meta">
-        <span class="mini-chip" id="recordsCountChip">0 active records</span>
-        <span class="mini-chip">Volkov internal intake portal</span>
-        <span class="mini-chip">RP-safe, in-city information only</span>
+      <div class="top-actions">
+        <span class="pill" id="userPill">No staff session</span>
+        <button class="btn btn-ghost" id="refreshBtn" type="button">Refresh Shared Data</button>
       </div>
     </div>
   </div>
@@ -1060,16 +1026,15 @@
             <div class="eyebrow">Private Lending • Financial Services • Capital Solutions</div>
             <div>
               <h1>Volkov Lending &amp; Financial</h1>
-              <div class="subtitle">In-City Lending Office • Character Finance &amp; Business Funding</div>
+              <div class="subtitle">Shared Supabase Office Portal • GitHub Pages Ready</div>
             </div>
             <p>
-              A refined internal intake and review portal for a serious in-city financial office. This system is built for
-              character lending requests, business capital reviews, asset financing, debt restructuring, and ongoing case management
-              inside a lore-friendly FiveM roleplay environment.
+              A production-style in-city financial office portal backed by Supabase for shared staff data. Sign in with approved staff credentials,
+              manage applications centrally, and keep intake records available to the office across devices and sessions.
             </p>
             <div class="hero-actions">
               <a class="btn btn-gold" href="#intakeForm">Open Intake Form</a>
-              <a class="btn btn-ghost" href="#recordsSection">Review Saved Applications</a>
+              <a class="btn btn-ghost" href="#recordsSection">Review Shared Applications</a>
             </div>
           </div>
         </section>
@@ -1082,17 +1047,67 @@
       <div class="notice">
         <strong>RP Compliance Notice:</strong>
         This office collects <strong>in-city character information only</strong>. Do not submit any real-life personal information.
-        All fields and internal notes in this system are intended strictly for immersive roleplay recordkeeping.
+        Shared data is stored in Supabase for authorized staff use only.
       </div>
     </div>
   </header>
 
-  <section>
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-grid">
+        <article class="panel auth-panel">
+          <h2 class="panel-title">Office Access</h2>
+          <p class="panel-copy">
+            Sign in with an approved staff email and password. This static GitHub Pages app reads and writes shared application data from Supabase.
+          </p>
+
+          <div class="auth-status-box">
+            <div class="auth-state" id="authStateBox">
+              <strong>Connection status:</strong> Configure Supabase and sign in to load the shared office ledger.
+            </div>
+
+            <form class="auth-form" id="authForm" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="staffEmail">Staff Email</label>
+                  <input id="staffEmail" type="email" autocomplete="username" placeholder="staff@yourdomain.com" />
+                </div>
+                <div class="field">
+                  <label for="staffPassword">Password</label>
+                  <input id="staffPassword" type="password" autocomplete="current-password" placeholder="Enter your password" />
+                </div>
+              </div>
+
+              <div class="toolbar-group">
+                <button class="btn btn-gold" id="signInBtn" type="submit">Sign In</button>
+                <button class="btn btn-ghost" id="signOutBtn" type="button">Sign Out</button>
+              </div>
+            </form>
+          </div>
+        </article>
+
+        <article class="panel setup-panel">
+          <h2 class="panel-title">Setup Snapshot</h2>
+          <p class="panel-copy">
+            This build is ready for GitHub Pages plus shared Supabase storage once you add project credentials and run the supplied SQL.
+          </p>
+          <div class="setup-list">
+            <div class="setup-item"><strong>1.</strong> Run the SQL in <code>supabase-schema.sql</code> inside the Supabase SQL Editor.</div>
+            <div class="setup-item"><strong>2.</strong> Copy <code>supabase-config.example.js</code> to <code>supabase-config.js</code> and paste your URL plus publishable key.</div>
+            <div class="setup-item"><strong>3.</strong> Invite staff accounts in Supabase Auth and sign in here from GitHub Pages.</div>
+            <div class="setup-item"><strong>4.</strong> Keep the JSON export and import tools for backup or migration workflows.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="services-section">
     <div class="container">
       <div class="section-header">
         <div>
           <h2>Financial Services Desk</h2>
-          <p>Structured service lanes for private capital review, character financing, and controlled case tracking within the city.</p>
+          <p>Structured service lanes for private capital review, character financing, and controlled shared case tracking inside the city.</p>
         </div>
       </div>
       <div class="services-grid">
@@ -1118,219 +1133,223 @@
         </article>
         <article class="service-card">
           <h3>Private Financial Review</h3>
-          <p>Internal risk review, case notes, and status management for lender-side decision making and follow-up scheduling.</p>
+          <p>Internal risk review, case notes, status management, and shared follow-up workflows for office staff.</p>
         </article>
       </div>
     </div>
   </section>
 
   <main class="container">
-    <section class="stats-grid" aria-label="Portfolio overview">
-      <article class="stat-card">
-        <div class="stat-label">Total Applications</div>
-        <div class="stat-value" id="statTotalApplications">0</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Requested Capital</div>
-        <div class="stat-value" id="statRequestedCapital">$0</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Awaiting Review</div>
-        <div class="stat-value" id="statAwaitingReview">0</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Active Loan Files</div>
-        <div class="stat-value" id="statActiveLoans">0</div>
-      </article>
+    <section class="stats-section">
+      <div class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-label">Total Applications</div>
+          <div class="stat-value" id="statTotalApplications">0</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Requested Capital</div>
+          <div class="stat-value" id="statRequestedCapital">$0</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Awaiting Review</div>
+          <div class="stat-value" id="statAwaitingReview">0</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Active Loan Files</div>
+          <div class="stat-value" id="statActiveLoans">0</div>
+        </article>
+      </div>
     </section>
 
-    <section class="main-grid">
-      <article class="panel form-panel" id="intakeForm">
-        <h2 class="panel-title">Lending Request Intake</h2>
-        <p class="panel-copy">
-          Submit an in-city application for financial review. Required fields are marked and validated with custom inline guidance.
-        </p>
+    <section class="main-grid-section">
+      <div class="main-grid">
+        <article class="panel form-panel" id="intakeForm">
+          <h2 class="panel-title">Shared Lending Request Intake</h2>
+          <p class="panel-copy">
+            Save RP-safe applications directly into the shared Supabase ledger. A signed-in staff session is required for create, update, or delete actions.
+          </p>
 
-        <form id="applicationForm" novalidate>
-          <div class="form-grid">
-            <div class="field-row">
-              <div class="field" data-field="characterName">
-                <label for="characterName">Character Full Name <span class="required">*</span></label>
-                <input id="characterName" name="characterName" type="text" maxlength="80" placeholder="Example: Viktor Sokolov" />
-                <div class="field-error" id="error-characterName"></div>
-              </div>
-              <div class="field" data-field="soulId">
-                <label for="soulId">Soul ID / State ID <span class="required">*</span></label>
-                <input id="soulId" name="soulId" type="text" maxlength="40" placeholder="Example: 51283" />
-                <div class="field-error" id="error-soulId"></div>
-              </div>
-            </div>
-
-            <div class="field-row">
-              <div class="field" data-field="inCityPhone">
-                <label for="inCityPhone">Character Phone Number (In-City) <span class="required">*</span></label>
-                <input id="inCityPhone" name="inCityPhone" type="text" maxlength="40" placeholder="Example: 555-0199" />
-                <div class="field-help">In-city contact only. Never enter a real-life phone number.</div>
-                <div class="field-error" id="error-inCityPhone"></div>
-              </div>
-              <div class="field" data-field="occupationEmployer">
-                <label for="occupationEmployer">Character Occupation / Employer <span class="required">*</span></label>
-                <input id="occupationEmployer" name="occupationEmployer" type="text" maxlength="100" placeholder="Example: Logistics Supervisor / Golden Catch" />
-                <div class="field-error" id="error-occupationEmployer"></div>
-              </div>
-            </div>
-
-            <div class="field-row">
-              <div class="field" data-field="businessName">
-                <label for="businessName">Business Name (If Applicable)</label>
-                <input id="businessName" name="businessName" type="text" maxlength="100" placeholder="Example: Volkov Imports" />
-                <div class="field-error" id="error-businessName"></div>
-              </div>
-              <div class="field" data-field="requestType">
-                <label for="requestType">Type of Request <span class="required">*</span></label>
-                <select id="requestType" name="requestType">
-                  <option value="">Select a request type</option>
-                  <option>Personal Character Loan</option>
-                  <option>Business Capital</option>
-                  <option>Vehicle Financing</option>
-                  <option>Property / Asset Financing</option>
-                  <option>Debt Restructuring</option>
-                  <option>Private Financial Review</option>
-                </select>
-                <div class="field-error" id="error-requestType"></div>
-              </div>
-            </div>
-
-            <div class="field-row">
-              <div class="field" data-field="amountRequested">
-                <label for="amountRequested">Amount Requested <span class="required">*</span></label>
-                <input id="amountRequested" name="amountRequested" type="text" inputmode="decimal" placeholder="Example: 25000" />
-                <div class="field-error" id="error-amountRequested"></div>
-              </div>
-              <div class="field" data-field="incomeAmount">
-                <label for="incomeAmount">Weekly / Monthly In-City Income <span class="required">*</span></label>
-                <div class="field-row" style="grid-template-columns: 1.25fr 0.75fr; gap: 10px;">
-                  <input id="incomeAmount" name="incomeAmount" type="text" inputmode="decimal" placeholder="Example: 6000" />
-                  <select id="incomeFrequency" name="incomeFrequency">
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                  </select>
+          <form id="applicationForm" novalidate>
+            <div class="form-grid">
+              <div class="field-row">
+                <div class="field" data-field="characterName">
+                  <label for="characterName">Character Full Name <span class="required">*</span></label>
+                  <input id="characterName" name="characterName" type="text" maxlength="80" placeholder="Example: Viktor Sokolov" />
+                  <div class="field-error" id="error-characterName"></div>
                 </div>
-                <div class="field-error" id="error-incomeAmount"></div>
+                <div class="field" data-field="soulId">
+                  <label for="soulId">Soul ID / State ID <span class="required">*</span></label>
+                  <input id="soulId" name="soulId" type="text" maxlength="40" placeholder="Example: 51283" />
+                  <div class="field-error" id="error-soulId"></div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" data-field="inCityPhone">
+                  <label for="inCityPhone">Character Phone Number (In-City) <span class="required">*</span></label>
+                  <input id="inCityPhone" name="inCityPhone" type="text" maxlength="40" placeholder="Example: 555-0199" />
+                  <div class="field-help">In-city contact only. Never enter a real-life phone number.</div>
+                  <div class="field-error" id="error-inCityPhone"></div>
+                </div>
+                <div class="field" data-field="occupationEmployer">
+                  <label for="occupationEmployer">Character Occupation / Employer <span class="required">*</span></label>
+                  <input id="occupationEmployer" name="occupationEmployer" type="text" maxlength="100" placeholder="Example: Logistics Supervisor / Golden Catch" />
+                  <div class="field-error" id="error-occupationEmployer"></div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" data-field="businessName">
+                  <label for="businessName">Business Name (If Applicable)</label>
+                  <input id="businessName" name="businessName" type="text" maxlength="100" placeholder="Example: Volkov Imports" />
+                  <div class="field-error" id="error-businessName"></div>
+                </div>
+                <div class="field" data-field="requestType">
+                  <label for="requestType">Type of Request <span class="required">*</span></label>
+                  <select id="requestType" name="requestType">
+                    <option value="">Select a request type</option>
+                    <option>Personal Character Loan</option>
+                    <option>Business Capital</option>
+                    <option>Vehicle Financing</option>
+                    <option>Property / Asset Financing</option>
+                    <option>Debt Restructuring</option>
+                    <option>Private Financial Review</option>
+                  </select>
+                  <div class="field-error" id="error-requestType"></div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" data-field="amountRequested">
+                  <label for="amountRequested">Amount Requested <span class="required">*</span></label>
+                  <input id="amountRequested" name="amountRequested" type="text" inputmode="decimal" placeholder="Example: 25000" />
+                  <div class="field-error" id="error-amountRequested"></div>
+                </div>
+                <div class="field" data-field="incomeAmount">
+                  <label for="incomeAmount">Weekly / Monthly In-City Income <span class="required">*</span></label>
+                  <div class="field-row" style="grid-template-columns: 1.25fr 0.75fr; gap: 10px;">
+                    <input id="incomeAmount" name="incomeAmount" type="text" inputmode="decimal" placeholder="Example: 6000" />
+                    <select id="incomeFrequency" name="incomeFrequency">
+                      <option value="Weekly">Weekly</option>
+                      <option value="Monthly">Monthly</option>
+                    </select>
+                  </div>
+                  <div class="field-error" id="error-incomeAmount"></div>
+                </div>
+              </div>
+
+              <div class="field" data-field="purposeOfFunds">
+                <label for="purposeOfFunds">Purpose of Funds <span class="required">*</span></label>
+                <textarea id="purposeOfFunds" name="purposeOfFunds" placeholder="Describe the intended in-city use of funds."></textarea>
+                <div class="field-error" id="error-purposeOfFunds"></div>
+              </div>
+
+              <div class="field" data-field="existingDebts">
+                <label for="existingDebts">Existing In-City Debts or Financial Obligations <span class="required">*</span></label>
+                <textarea id="existingDebts" name="existingDebts" placeholder="List current in-city debt obligations, payment pressure, or state that none exist."></textarea>
+                <div class="field-error" id="error-existingDebts"></div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" data-field="collateralOffered">
+                  <label for="collateralOffered">Collateral Offered</label>
+                  <textarea id="collateralOffered" name="collateralOffered" placeholder="Vehicle, asset, property interest, business collateral, or none."></textarea>
+                  <div class="field-error" id="error-collateralOffered"></div>
+                </div>
+                <div class="field" data-field="repaymentPlan">
+                  <label for="repaymentPlan">Requested Repayment Plan <span class="required">*</span></label>
+                  <textarea id="repaymentPlan" name="repaymentPlan" placeholder="Provide the proposed repayment cadence and expectations."></textarea>
+                  <div class="field-error" id="error-repaymentPlan"></div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field" data-field="additionalNotes">
+                  <label for="additionalNotes">Additional In-City Notes / Explanation</label>
+                  <textarea id="additionalNotes" name="additionalNotes" placeholder="Add any supporting in-city details relevant to the application."></textarea>
+                  <div class="field-error" id="error-additionalNotes"></div>
+                </div>
+                <div class="field" data-field="referralName">
+                  <label for="referralName">Referral / Reference Name</label>
+                  <input id="referralName" name="referralName" type="text" maxlength="100" placeholder="Example: Elena Petrov" />
+                  <div class="field-help">Reference name must also remain in-character and in-city only.</div>
+                  <div class="field-error" id="error-referralName"></div>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <div class="form-state" id="formState">New submissions are entered with an initial status of <strong>Under Review</strong>.</div>
+                <div class="toolbar-group">
+                  <button type="button" class="btn btn-ghost" id="resetFormBtn">Reset Form</button>
+                  <button type="submit" class="btn btn-gold" id="submitBtn">Save to Shared Ledger</button>
+                </div>
               </div>
             </div>
+          </form>
+        </article>
 
-            <div class="field" data-field="purposeOfFunds">
-              <label for="purposeOfFunds">Purpose of Funds <span class="required">*</span></label>
-              <textarea id="purposeOfFunds" name="purposeOfFunds" placeholder="Describe the intended in-city use of funds."></textarea>
-              <div class="field-error" id="error-purposeOfFunds"></div>
-            </div>
-
-            <div class="field" data-field="existingDebts">
-              <label for="existingDebts">Existing In-City Debts or Financial Obligations <span class="required">*</span></label>
-              <textarea id="existingDebts" name="existingDebts" placeholder="List current in-city debt obligations, payment pressure, or state that none exist."></textarea>
-              <div class="field-error" id="error-existingDebts"></div>
-            </div>
-
-            <div class="field-row">
-              <div class="field" data-field="collateralOffered">
-                <label for="collateralOffered">Collateral Offered</label>
-                <textarea id="collateralOffered" name="collateralOffered" placeholder="Vehicle, asset, property interest, business collateral, or none."></textarea>
-                <div class="field-error" id="error-collateralOffered"></div>
-              </div>
-              <div class="field" data-field="repaymentPlan">
-                <label for="repaymentPlan">Requested Repayment Plan <span class="required">*</span></label>
-                <textarea id="repaymentPlan" name="repaymentPlan" placeholder="Provide the proposed repayment cadence and expectations."></textarea>
-                <div class="field-error" id="error-repaymentPlan"></div>
-              </div>
-            </div>
-
-            <div class="field-row">
-              <div class="field" data-field="additionalNotes">
-                <label for="additionalNotes">Additional In-City Notes / Explanation</label>
-                <textarea id="additionalNotes" name="additionalNotes" placeholder="Add any supporting in-city details relevant to the application."></textarea>
-                <div class="field-error" id="error-additionalNotes"></div>
-              </div>
-              <div class="field" data-field="referralName">
-                <label for="referralName">Referral / Reference Name</label>
-                <input id="referralName" name="referralName" type="text" maxlength="100" placeholder="Example: Elena Petrov" />
-                <div class="field-help">Reference name must also remain in-character and in-city only.</div>
-                <div class="field-error" id="error-referralName"></div>
-              </div>
-            </div>
-
-            <div class="form-footer">
-              <div class="form-state" id="formState">New submissions are entered with an initial status of <strong>Under Review</strong>.</div>
-              <div class="toolbar-group">
-                <button type="button" class="btn btn-ghost" id="resetFormBtn">Reset Form</button>
-                <button type="submit" class="btn btn-gold" id="submitBtn">Save Application</button>
-              </div>
+        <article class="panel records-panel" id="recordsSection">
+          <div class="section-header" style="margin-bottom: 14px;">
+            <div>
+              <h2 class="panel-title" style="margin-bottom: 8px;">Submitted Applications</h2>
+              <p class="panel-copy" style="margin-bottom: 0;">
+                Search, sort, export, import, review, and manage shared RP case records from the office ledger.
+              </p>
             </div>
           </div>
-        </form>
-      </article>
 
-      <article class="panel records-panel" id="recordsSection">
-        <div class="section-header" style="margin-bottom: 14px;">
-          <div>
-            <h2 class="panel-title" style="margin-bottom: 8px;">Submitted Applications</h2>
-            <p class="panel-copy" style="margin-bottom: 0;">
-              Search, sort, export, import, review, and manage saved RP case records from a single controlled desk.
-            </p>
-          </div>
-        </div>
+          <div class="records-toolbar">
+            <div class="search-wrap">
+              <label class="sr-only" for="searchInput">Search applications</label>
+              <input id="searchInput" type="search" placeholder="Search by character, soul ID, request type, business, referral, or status" />
+              <label class="sr-only" for="statusFilter">Filter by status</label>
+              <select id="statusFilter">
+                <option value="all">All statuses</option>
+                <option>Under Review</option>
+                <option>Pending Interview</option>
+                <option>Approved</option>
+                <option>Denied</option>
+                <option>Awaiting Additional Information</option>
+                <option>Active Loan</option>
+                <option>Closed</option>
+              </select>
+            </div>
 
-        <div class="records-toolbar">
-          <div class="search-wrap">
-            <label class="sr-only" for="searchInput">Search applications</label>
-            <input id="searchInput" type="search" placeholder="Search by character, soul ID, request type, business, referral, or status" />
-            <label class="sr-only" for="statusFilter">Filter by status</label>
-            <select id="statusFilter">
-              <option value="all">All statuses</option>
-              <option>Under Review</option>
-              <option>Pending Interview</option>
-              <option>Approved</option>
-              <option>Denied</option>
-              <option>Awaiting Additional Information</option>
-              <option>Active Loan</option>
-              <option>Closed</option>
-            </select>
+            <div class="toolbar-group">
+              <button class="btn btn-ghost" id="exportAllBtn" type="button">Export All</button>
+              <button class="btn btn-ghost" id="importBtn" type="button">Import JSON</button>
+              <button class="btn btn-danger" id="clearAllBtn" type="button">Clear Office Data</button>
+            </div>
           </div>
 
-          <div class="toolbar-group">
-            <button class="btn btn-ghost" id="exportAllBtn" type="button">Export All</button>
-            <button class="btn btn-ghost" id="importBtn" type="button">Import JSON</button>
-            <button class="btn btn-danger" id="clearAllBtn" type="button">Clear All Saved Data</button>
-          </div>
-        </div>
+          <div class="toolbar-note" id="resultsSummary">No applications loaded yet.</div>
+          <div class="records-scroll-hint"><span>↔</span> Scroll left or right to view the full saved-record table when space is limited.</div>
 
-        <div class="toolbar-note" id="resultsSummary">No applications saved yet.</div>
-        <div class="records-scroll-hint"><span>↔</span> Scroll left or right to view the full saved-record table when space is limited.</div>
+          <div class="records-shell">
+            <div class="records-scroll" aria-label="Horizontal scroll area for saved applications table">
+              <table class="records-table" aria-label="Saved applications table">
+                <thead>
+                  <tr>
+                    <th><button type="button" data-sort-key="characterName">Character <span class="sort-indicator" id="sort-characterName"></span></button></th>
+                    <th>Soul ID</th>
+                    <th><button type="button" data-sort-key="requestType">Request Type <span class="sort-indicator" id="sort-requestType"></span></button></th>
+                    <th><button type="button" data-sort-key="amountRequested">Amount <span class="sort-indicator" id="sort-amountRequested"></span></button></th>
+                    <th><button type="button" data-sort-key="status">Status <span class="sort-indicator" id="sort-status"></span></button></th>
+                    <th><button type="button" data-sort-key="createdAt">Submitted <span class="sort-indicator" id="sort-createdAt"></span></button></th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recordsTableBody"></tbody>
+              </table>
+            </div>
 
-        <div class="records-shell" style="margin-top: 14px;">
-          <div class="records-scroll" aria-label="Horizontal scroll area for saved applications table">
-            <table class="records-table" aria-label="Saved applications table">
-              <thead>
-                <tr>
-                  <th><button type="button" data-sort-key="characterName">Character <span class="sort-indicator" id="sort-characterName"></span></button></th>
-                  <th>Soul ID</th>
-                  <th><button type="button" data-sort-key="requestType">Request Type <span class="sort-indicator" id="sort-requestType"></span></button></th>
-                  <th><button type="button" data-sort-key="amountRequested">Amount <span class="sort-indicator" id="sort-amountRequested"></span></button></th>
-                  <th><button type="button" data-sort-key="status">Status <span class="sort-indicator" id="sort-status"></span></button></th>
-                  <th><button type="button" data-sort-key="createdAt">Submitted <span class="sort-indicator" id="sort-createdAt"></span></button></th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="recordsTableBody"></tbody>
-            </table>
+            <div class="record-cards" id="recordCards"></div>
+            <div class="records-empty hidden" id="recordsEmpty">
+              No matching applications are currently on file. Shared entries will appear here after sign-in and load.
+            </div>
           </div>
-
-          <div class="record-cards" id="recordCards"></div>
-          <div class="records-empty hidden" id="recordsEmpty">
-            No matching applications are currently on file. Saved entries will appear here after submission or import.
-          </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </section>
   </main>
 
@@ -1350,7 +1369,7 @@
       <div class="modal-body" id="detailModalBody"></div>
       <div class="modal-footer">
         <div class="toolbar-note" id="detailModalMeta">Internal case review controls</div>
-        <div class="footer-actions">
+        <div class="toolbar-group">
           <button class="btn btn-ghost" type="button" id="detailEditBtn">Edit Intake</button>
           <button class="btn btn-ghost" type="button" id="detailExportBtn">Export Record</button>
           <button class="btn btn-danger" type="button" id="detailDeleteBtn">Delete</button>
@@ -1372,7 +1391,7 @@
       <div class="modal-body" id="confirmModalBody"></div>
       <div class="modal-footer">
         <div class="toolbar-note" id="confirmModalMeta">Review this action before proceeding.</div>
-        <div class="footer-actions">
+        <div class="toolbar-group">
           <button class="btn btn-ghost" type="button" id="confirmCancelBtn">Cancel</button>
           <button class="btn btn-danger" type="button" id="confirmActionBtn">Confirm</button>
         </div>
@@ -1385,7 +1404,7 @@
       <div class="modal-header">
         <div>
           <h3 id="importModalTitle">Import Records</h3>
-          <p>Review the detected file before applying it to the current ledger.</p>
+          <p>Review the detected file before applying it to the shared office ledger.</p>
         </div>
         <button class="icon-btn" type="button" data-close-modal="importModalBackdrop" aria-label="Close import dialog">✕</button>
       </div>
@@ -1393,8 +1412,8 @@
         <div class="import-summary" id="importSummary"></div>
       </div>
       <div class="modal-footer">
-        <div class="toolbar-note">Choose whether to merge with or replace the current records.</div>
-        <div class="footer-actions">
+        <div class="toolbar-note">Choose whether to merge with or replace the current office records.</div>
+        <div class="toolbar-group">
           <button class="btn btn-ghost" type="button" id="importCancelBtn">Cancel</button>
           <button class="btn btn-silver" type="button" id="importMergeBtn">Merge</button>
           <button class="btn btn-gold" type="button" id="importReplaceBtn">Replace All</button>
@@ -1403,8 +1422,21 @@
     </div>
   </div>
 
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const STORAGE_KEY = "volkov_lending_financial_records_v1";
+    const CONFIG = window.VOLKOV_CONFIG || {};
+    const SUPABASE_URL = CONFIG.supabaseUrl || "";
+    const SUPABASE_KEY = CONFIG.supabaseKey || "";
+    const OFFICE_SLUG = CONFIG.officeSlug || "volkov";
+    const TABLE_NAME = CONFIG.tableName || "volkov_applications";
+    const REFRESH_MS = Number(CONFIG.refreshIntervalMs || 30000);
+    const CONFIG_READY = Boolean(
+      SUPABASE_URL &&
+      SUPABASE_KEY &&
+      !/YOUR_|PASTE_|REPLACE_/i.test(SUPABASE_URL + " " + SUPABASE_KEY)
+    );
+
     const DEFAULT_STATUS = "Under Review";
     const STATUSES = [
       "Under Review",
@@ -1416,8 +1448,28 @@
       "Closed"
     ];
 
+    const formFields = [
+      "characterName",
+      "soulId",
+      "inCityPhone",
+      "occupationEmployer",
+      "businessName",
+      "requestType",
+      "amountRequested",
+      "incomeAmount",
+      "incomeFrequency",
+      "purposeOfFunds",
+      "existingDebts",
+      "collateralOffered",
+      "repaymentPlan",
+      "additionalNotes",
+      "referralName"
+    ];
+
     const appState = {
-      storageAvailable: false,
+      supabase: null,
+      session: null,
+      user: null,
       records: [],
       searchTerm: "",
       statusFilter: "all",
@@ -1425,14 +1477,24 @@
       editingId: null,
       activeRecordId: null,
       pendingImport: null,
-      confirmHandler: null
+      confirmHandler: null,
+      loading: false,
+      refreshTimer: null
     };
 
     const el = {
-      storageBanner: document.getElementById("storageBanner"),
-      storageTitle: document.getElementById("storageTitle"),
-      storageText: document.getElementById("storageText"),
-      recordsCountChip: document.getElementById("recordsCountChip"),
+      connectionPill: document.getElementById("connectionPill"),
+      connectionDot: document.getElementById("connectionDot"),
+      connectionTitle: document.getElementById("connectionTitle"),
+      connectionText: document.getElementById("connectionText"),
+      userPill: document.getElementById("userPill"),
+      refreshBtn: document.getElementById("refreshBtn"),
+      authForm: document.getElementById("authForm"),
+      staffEmail: document.getElementById("staffEmail"),
+      staffPassword: document.getElementById("staffPassword"),
+      signInBtn: document.getElementById("signInBtn"),
+      signOutBtn: document.getElementById("signOutBtn"),
+      authStateBox: document.getElementById("authStateBox"),
       form: document.getElementById("applicationForm"),
       formState: document.getElementById("formState"),
       submitBtn: document.getElementById("submitBtn"),
@@ -1472,75 +1534,37 @@
       importReplaceBtn: document.getElementById("importReplaceBtn")
     };
 
-    const formFields = [
-      "characterName",
-      "soulId",
-      "inCityPhone",
-      "occupationEmployer",
-      "businessName",
-      "requestType",
-      "amountRequested",
-      "incomeAmount",
-      "incomeFrequency",
-      "purposeOfFunds",
-      "existingDebts",
-      "collateralOffered",
-      "repaymentPlan",
-      "additionalNotes",
-      "referralName"
-    ];
-
     function initialize() {
-      appState.storageAvailable = detectStorage();
-      appState.records = loadRecords();
       bindEvents();
-      updateStorageBanner();
+      updateConnectionUi();
+
+      if (CONFIG_READY && window.supabase && typeof window.supabase.createClient === "function") {
+        appState.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        restoreSession();
+      } else {
+        disableWriteControls(true);
+      }
+
       renderAll();
     }
 
-    function detectStorage() {
+    async function restoreSession() {
       try {
-        const testKey = "__volkov_storage_test__";
-        localStorage.setItem(testKey, "ok");
-        localStorage.removeItem(testKey);
-        return true;
+        const { data, error } = await appState.supabase.auth.getSession();
+        if (error) throw error;
+        setSession(data.session || null);
+        appState.supabase.auth.onAuthStateChange((_event, session) => {
+          setSession(session || null);
+        });
       } catch (error) {
-        return false;
-      }
-    }
-
-    function loadRecords() {
-      if (!appState.storageAvailable) return [];
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed)) return [];
-        return parsed.map(sanitizeImportedRecord).filter(Boolean);
-      } catch (error) {
-        showToast("Saved browser data could not be read. The ledger started empty for safety.", "error", "Storage Read Issue");
-        return [];
-      }
-    }
-
-    function saveRecords() {
-      if (!appState.storageAvailable) return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState.records));
-    }
-
-    function updateStorageBanner() {
-      if (appState.storageAvailable) {
-        el.storageBanner.classList.remove("blocked");
-        el.storageTitle.textContent = "Storage Available";
-        el.storageText.textContent = "Records will persist on this browser after closing and reopening the page.";
-      } else {
-        el.storageBanner.classList.add("blocked");
-        el.storageTitle.textContent = "Storage Blocked";
-        el.storageText.textContent = "Browser storage is unavailable. Records remain session-only until export.";
+        updateConnectionUi("error", "Supabase session could not be restored", getErrorMessage(error));
       }
     }
 
     function bindEvents() {
+      el.authForm.addEventListener("submit", handleSignIn);
+      el.signOutBtn.addEventListener("click", handleSignOut);
+      el.refreshBtn.addEventListener("click", () => fetchRecords(true));
       el.form.addEventListener("submit", handleFormSubmit);
       el.resetFormBtn.addEventListener("click", handleFormReset);
       el.searchInput.addEventListener("input", (event) => {
@@ -1561,39 +1585,24 @@
       el.detailSaveBtn.addEventListener("click", saveDetailReview);
       el.confirmCancelBtn.addEventListener("click", () => closeModal(el.confirmModalBackdrop));
       el.confirmActionBtn.addEventListener("click", () => {
-        if (typeof appState.confirmHandler === "function") {
-          appState.confirmHandler();
-        }
+        if (typeof appState.confirmHandler === "function") appState.confirmHandler();
       });
       el.importCancelBtn.addEventListener("click", () => closeModal(el.importModalBackdrop));
       el.importMergeBtn.addEventListener("click", () => applyImport("merge"));
       el.importReplaceBtn.addEventListener("click", () => applyImport("replace"));
 
       document.querySelectorAll("[data-sort-key]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const key = button.dataset.sortKey;
-          updateSort(key);
-        });
+        button.addEventListener("click", () => updateSort(button.dataset.sortKey));
       });
 
       document.querySelectorAll("[data-close-modal]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const id = button.getAttribute("data-close-modal");
-          closeModal(document.getElementById(id));
-        });
+        button.addEventListener("click", () => closeModal(document.getElementById(button.getAttribute("data-close-modal"))));
       });
 
       [el.detailModalBackdrop, el.confirmModalBackdrop, el.importModalBackdrop].forEach((backdrop) => {
         backdrop.addEventListener("click", (event) => {
           if (event.target === backdrop) closeModal(backdrop);
         });
-      });
-
-      formFields.forEach((fieldName) => {
-        const input = document.getElementById(fieldName);
-        if (!input) return;
-        input.addEventListener("input", () => validateForm(false));
-        input.addEventListener("change", () => validateForm(false));
       });
 
       document.addEventListener("keydown", (event) => {
@@ -1603,6 +1612,161 @@
           });
         }
       });
+
+      formFields.forEach((fieldName) => {
+        const input = document.getElementById(fieldName);
+        if (!input) return;
+        input.addEventListener("input", () => validateForm(false));
+        input.addEventListener("change", () => validateForm(false));
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && appState.user) fetchRecords(false);
+      });
+    }
+
+    function setSession(session) {
+      appState.session = session;
+      appState.user = session?.user || null;
+      updateConnectionUi();
+      disableWriteControls(!(CONFIG_READY && appState.user));
+
+      if (appState.user) {
+        fetchRecords(false);
+        startRefreshTimer();
+      } else {
+        appState.records = [];
+        stopRefreshTimer();
+        renderAll();
+      }
+    }
+
+    function startRefreshTimer() {
+      stopRefreshTimer();
+      if (!REFRESH_MS || REFRESH_MS < 5000) return;
+      appState.refreshTimer = setInterval(() => {
+        if (!document.hidden && appState.user) fetchRecords(false);
+      }, REFRESH_MS);
+    }
+
+    function stopRefreshTimer() {
+      if (appState.refreshTimer) {
+        clearInterval(appState.refreshTimer);
+        appState.refreshTimer = null;
+      }
+    }
+
+    function updateConnectionUi(mode, titleOverride, textOverride) {
+      const hasConfig = CONFIG_READY;
+      const signedIn = Boolean(appState.user);
+      el.connectionDot.className = "dot";
+      el.connectionPill.classList.remove("danger");
+
+      if (mode === "error") {
+        el.connectionDot.classList.add("danger");
+        el.connectionTitle.textContent = titleOverride || "Connection issue";
+        el.connectionText.textContent = textOverride || "The shared ledger is unavailable right now.";
+      } else if (!hasConfig) {
+        el.connectionTitle.textContent = "Supabase not configured";
+        el.connectionText.textContent = "Add your Supabase URL and publishable key to connect shared data.";
+      } else if (!signedIn) {
+        el.connectionDot.classList.add("success");
+        el.connectionTitle.textContent = "Supabase ready";
+        el.connectionText.textContent = "Sign in with an approved staff account to load the shared office ledger.";
+      } else {
+        el.connectionDot.classList.add("success");
+        el.connectionTitle.textContent = "Connected to shared office data";
+        el.connectionText.textContent = "Staff changes are stored in Supabase and can be refreshed across devices.";
+      }
+
+      el.userPill.textContent = signedIn ? `Signed in: ${appState.user.email}` : "No staff session";
+
+      if (!hasConfig) {
+        el.authStateBox.innerHTML = "<strong>Configuration required:</strong> copy <code>supabase-config.example.js</code> to <code>supabase-config.js</code>, then paste your Supabase project URL and publishable key.";
+      } else if (!signedIn) {
+        el.authStateBox.innerHTML = "<strong>Ready to sign in:</strong> use an approved staff email and password. Until a session is active, the shared ledger stays read-disabled.";
+      } else {
+        el.authStateBox.innerHTML = `<strong>Staff session active:</strong> ${escapeHtml(appState.user.email)}<br />Shared office records can now be created, updated, imported, exported, refreshed, and deleted according to your Supabase policies.`;
+      }
+    }
+
+    function disableWriteControls(disabled) {
+      [el.submitBtn, el.clearAllBtn, el.importBtn, el.detailSaveBtn, el.detailDeleteBtn].forEach((button) => {
+        if (button) button.disabled = disabled;
+      });
+    }
+
+    async function handleSignIn(event) {
+      event.preventDefault();
+      if (!CONFIG_READY || !appState.supabase) {
+        showToast("Supabase is not configured yet. Add your project credentials first.", "error", "Configuration Required");
+        return;
+      }
+
+      const email = el.staffEmail.value.trim();
+      const password = el.staffPassword.value;
+      if (!email || !password) {
+        showToast("Enter both a staff email and password to sign in.", "error", "Sign-In Required");
+        return;
+      }
+
+      try {
+        setBusy(true, "Signing in...");
+        const { error } = await appState.supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        el.staffPassword.value = "";
+        showToast("Staff session established. Shared data is now available.", "success", "Signed In");
+      } catch (error) {
+        showToast(getErrorMessage(error), "error", "Sign-In Failed");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function handleSignOut() {
+      if (!appState.supabase) return;
+      try {
+        setBusy(true, "Signing out...");
+        const { error } = await appState.supabase.auth.signOut();
+        if (error) throw error;
+        resetFormState();
+        closeModal(el.detailModalBackdrop);
+        showToast("The staff session has ended.", "info", "Signed Out");
+      } catch (error) {
+        showToast(getErrorMessage(error), "error", "Sign-Out Failed");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function fetchRecords(showToastOnSuccess) {
+      if (!appState.supabase || !appState.user) {
+        appState.records = [];
+        renderAll();
+        return;
+      }
+
+      try {
+        setBusy(true, "Loading shared records...");
+        const { data, error } = await appState.supabase
+          .from(TABLE_NAME)
+          .select("*")
+          .eq("office_slug", OFFICE_SLUG)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        appState.records = (data || []).map(mapDbRecordToUiRecord);
+        renderAll();
+
+        if (showToastOnSuccess) {
+          showToast("The shared office ledger was refreshed from Supabase.", "success", "Shared Data Refreshed");
+        }
+      } catch (error) {
+        updateConnectionUi("error", "Shared ledger unavailable", getErrorMessage(error));
+        showToast(getErrorMessage(error), "error", "Load Failed");
+      } finally {
+        setBusy(false);
+      }
     }
 
     function updateSort(key) {
@@ -1615,41 +1779,44 @@
       renderRecords();
     }
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
       event.preventDefault();
+      if (!requireSignedInAction("save an application")) return;
+
       const result = validateForm(true);
       if (!result.valid) {
         showToast("Please correct the highlighted fields before saving the application.", "error", "Validation Required");
         return;
       }
 
-      const now = new Date().toISOString();
-      if (appState.editingId) {
-        const recordIndex = appState.records.findIndex((entry) => entry.id === appState.editingId);
-        if (recordIndex >= 0) {
-          appState.records[recordIndex] = {
-            ...appState.records[recordIndex],
-            ...result.data,
-            updatedAt: now
-          };
-          showToast("The application was updated successfully.", "success", "Record Updated");
-        }
-      } else {
-        appState.records.unshift({
-          id: createId(),
-          status: DEFAULT_STATUS,
-          officeNotes: "",
-          createdAt: now,
-          updatedAt: now,
-          ...result.data
-        });
-        showToast("The application was saved to the Volkov ledger.", "success", "Record Saved");
-      }
+      try {
+        setBusy(true, appState.editingId ? "Updating shared record..." : "Saving to shared ledger...");
+        const payload = uiDataToDbPayload(result.data);
 
-      saveRecords();
-      renderAll();
-      resetFormState();
-      el.form.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (appState.editingId) {
+          payload.updated_by = appState.user.id;
+          const { error } = await appState.supabase
+            .from(TABLE_NAME)
+            .update(payload)
+            .eq("id", appState.editingId)
+            .eq("office_slug", OFFICE_SLUG);
+          if (error) throw error;
+          showToast("The shared application was updated successfully.", "success", "Record Updated");
+        } else {
+          payload.created_by = appState.user.id;
+          payload.updated_by = appState.user.id;
+          const { error } = await appState.supabase.from(TABLE_NAME).insert(payload);
+          if (error) throw error;
+          showToast("The application was saved to the shared office ledger.", "success", "Record Saved");
+        }
+
+        resetFormState();
+        await fetchRecords(false);
+      } catch (error) {
+        showToast(getErrorMessage(error), "error", "Save Failed");
+      } finally {
+        setBusy(false);
+      }
     }
 
     function handleFormReset() {
@@ -1658,7 +1825,7 @@
           title: "Reset Intake Form",
           text: "Clear the current intake form and remove any unsaved edits?",
           meta: "This only resets the form currently on screen.",
-          body: '<div class="import-summary">The current intake draft will be cleared. Saved records already in the ledger will not be affected.</div>',
+          body: '<div class="import-summary">The current intake draft will be cleared. Shared records already in the ledger will not be affected.</div>',
           confirmLabel: "Reset Form",
           onConfirm: () => {
             resetFormState();
@@ -1682,39 +1849,18 @@
       const data = getFormData();
       const errors = {};
 
-      if (!data.characterName || data.characterName.length < 3) {
-        errors.characterName = "Enter a character full name with at least 3 characters.";
-      }
-      if (!data.soulId || data.soulId.length < 2) {
-        errors.soulId = "Enter a valid Soul ID / State ID.";
-      }
-      if (!data.inCityPhone || data.inCityPhone.length < 3) {
-        errors.inCityPhone = "Enter an in-city phone number only.";
-      }
-      if (!data.occupationEmployer || data.occupationEmployer.length < 3) {
-        errors.occupationEmployer = "Enter the character occupation or employer.";
-      }
-      if (!data.requestType) {
-        errors.requestType = "Select the request type for this application.";
-      }
-      if (!(data.amountRequested > 0)) {
-        errors.amountRequested = "Enter a requested amount greater than zero.";
-      }
-      if (!(data.incomeAmount > 0)) {
-        errors.incomeAmount = "Enter a valid weekly or monthly in-city income amount.";
-      }
-      if (!data.purposeOfFunds || data.purposeOfFunds.length < 12) {
-        errors.purposeOfFunds = "Describe the in-city purpose of funds in more detail.";
-      }
-      if (!data.existingDebts || data.existingDebts.length < 4) {
-        errors.existingDebts = "List active in-city debts or state that none exist.";
-      }
-      if (!data.repaymentPlan || data.repaymentPlan.length < 8) {
-        errors.repaymentPlan = "Provide the requested repayment plan.";
-      }
+      if (!data.characterName || data.characterName.length < 3) errors.characterName = "Enter a character full name with at least 3 characters.";
+      if (!data.soulId || data.soulId.length < 2) errors.soulId = "Enter a valid Soul ID / State ID.";
+      if (!data.inCityPhone || data.inCityPhone.length < 3) errors.inCityPhone = "Enter an in-city phone number only.";
+      if (!data.occupationEmployer || data.occupationEmployer.length < 3) errors.occupationEmployer = "Enter the character occupation or employer.";
+      if (!data.requestType) errors.requestType = "Select the request type for this application.";
+      if (!(data.amountRequested > 0)) errors.amountRequested = "Enter a requested amount greater than zero.";
+      if (!(data.incomeAmount > 0)) errors.incomeAmount = "Enter a valid weekly or monthly in-city income amount.";
+      if (!data.purposeOfFunds || data.purposeOfFunds.length < 12) errors.purposeOfFunds = "Describe the in-city purpose of funds in more detail.";
+      if (!data.existingDebts || data.existingDebts.length < 4) errors.existingDebts = "List active in-city debts or state that none exist.";
+      if (!data.repaymentPlan || data.repaymentPlan.length < 8) errors.repaymentPlan = "Provide the requested repayment plan.";
 
       formFields.forEach((fieldName) => setFieldError(fieldName, errors[fieldName] || ""));
-
       return { valid: Object.keys(errors).length === 0, errors, data };
     }
 
@@ -1734,36 +1880,10 @@
         collateralOffered: getValue("collateralOffered"),
         repaymentPlan: getValue("repaymentPlan"),
         additionalNotes: getValue("additionalNotes"),
-        referralName: getValue("referralName")
+        referralName: getValue("referralName"),
+        status: DEFAULT_STATUS,
+        officeNotes: ""
       };
-    }
-
-    function getValue(id) {
-      const input = document.getElementById(id);
-      return input ? input.value.trim() : "";
-    }
-
-    function parseMoneyInput(value) {
-      if (!value) return 0;
-      const numeric = String(value).replace(/[^0-9.-]/g, "");
-      const amount = Number(numeric);
-      return Number.isFinite(amount) ? amount : 0;
-    }
-
-    function setFieldError(fieldName, message) {
-      const field = document.querySelector(`[data-field="${fieldName}"]`);
-      const error = document.getElementById(`error-${fieldName}`);
-      if (!field || !error) return;
-      error.textContent = message;
-      field.classList.toggle("invalid", Boolean(message));
-    }
-
-    function resetFormState() {
-      el.form.reset();
-      appState.editingId = null;
-      el.submitBtn.textContent = "Save Application";
-      el.formState.innerHTML = 'New submissions are entered with an initial status of <strong>Under Review</strong>.';
-      formFields.forEach((fieldName) => setFieldError(fieldName, ""));
     }
 
     function populateForm(record) {
@@ -1783,17 +1903,24 @@
       document.getElementById("additionalNotes").value = record.additionalNotes || "";
       document.getElementById("referralName").value = record.referralName || "";
       appState.editingId = record.id;
-      el.submitBtn.textContent = "Update Application";
+      el.submitBtn.textContent = "Update Shared Application";
       el.formState.innerHTML = 'Editing an existing application. Existing status remains <strong>' + escapeHtml(record.status || DEFAULT_STATUS) + '</strong> unless updated in the review panel.';
       formFields.forEach((fieldName) => setFieldError(fieldName, ""));
       validateForm(false);
       el.form.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function resetFormState() {
+      el.form.reset();
+      appState.editingId = null;
+      el.submitBtn.textContent = "Save to Shared Ledger";
+      el.formState.innerHTML = 'New submissions are entered with an initial status of <strong>Under Review</strong>.';
+      formFields.forEach((fieldName) => setFieldError(fieldName, ""));
+    }
+
     function renderAll() {
       renderStats();
       renderRecords();
-      updateLedgerChips();
     }
 
     function renderStats() {
@@ -1806,10 +1933,6 @@
       el.statRequestedCapital.textContent = formatCurrency(requestedCapital);
       el.statAwaitingReview.textContent = awaitingReview.toLocaleString();
       el.statActiveLoans.textContent = activeLoans.toLocaleString();
-    }
-
-    function updateLedgerChips() {
-      el.recordsCountChip.textContent = `${appState.records.length} active record${appState.records.length === 1 ? "" : "s"}`;
     }
 
     function renderRecords() {
@@ -1831,18 +1954,21 @@
 
       const total = appState.records.length;
       const visible = records.length;
-      if (!total) {
-        el.resultsSummary.textContent = "No applications saved yet.";
+      if (!CONFIG_READY) {
+        el.resultsSummary.textContent = "Configure Supabase to begin loading shared records.";
+      } else if (!appState.user) {
+        el.resultsSummary.textContent = "Sign in to load the shared office ledger.";
+      } else if (!total) {
+        el.resultsSummary.textContent = "No shared applications are currently on file.";
       } else if (visible === total) {
-        el.resultsSummary.textContent = `${visible} application${visible === 1 ? "" : "s"} currently on file.`;
+        el.resultsSummary.textContent = `${visible} shared application${visible === 1 ? "" : "s"} currently on file.`;
       } else {
-        el.resultsSummary.textContent = `Showing ${visible} of ${total} saved application${total === 1 ? "" : "s"}.`;
+        el.resultsSummary.textContent = `Showing ${visible} of ${total} shared application${total === 1 ? "" : "s"}.`;
       }
     }
 
     function getVisibleRecords() {
       let list = [...appState.records];
-
       if (appState.searchTerm) {
         list = list.filter((record) => {
           const haystack = [
@@ -1869,25 +1995,16 @@
     }
 
     function compareRecords(a, b, sort) {
-      const { key, direction } = sort;
-      const dir = direction === "asc" ? 1 : -1;
-      const aValue = a[key];
-      const bValue = b[key];
-
-      if (key === "amountRequested") {
-        return ((Number(aValue) || 0) - (Number(bValue) || 0)) * dir;
-      }
-      if (key === "createdAt") {
-        return (new Date(aValue).getTime() - new Date(bValue).getTime()) * dir;
-      }
-      return String(aValue || "").localeCompare(String(bValue || ""), undefined, { sensitivity: "base" }) * dir;
+      const dir = sort.direction === "asc" ? 1 : -1;
+      if (sort.key === "amountRequested") return ((Number(a.amountRequested) || 0) - (Number(b.amountRequested) || 0)) * dir;
+      if (sort.key === "createdAt") return (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()) * dir;
+      return String(a[sort.key] || "").localeCompare(String(b[sort.key] || ""), undefined, { sensitivity: "base" }) * dir;
     }
 
     function renderSortIndicators() {
       ["characterName", "requestType", "amountRequested", "status", "createdAt"].forEach((key) => {
         const indicator = document.getElementById(`sort-${key}`);
-        if (!indicator) return;
-        indicator.textContent = appState.sort.key === key ? (appState.sort.direction === "asc" ? "▲" : "▼") : "";
+        if (indicator) indicator.textContent = appState.sort.key === key ? (appState.sort.direction === "asc" ? "▲" : "▼") : "";
       });
     }
 
@@ -2005,7 +2122,6 @@
           </div>
         </div>
       `;
-
       el.detailModalMeta.textContent = `Application file for ${record.characterName} • ${record.requestType}`;
       openModal(el.detailModalBackdrop);
     }
@@ -2019,20 +2135,34 @@
       `;
     }
 
-    function saveDetailReview() {
+    async function saveDetailReview() {
+      if (!requireSignedInAction("update the review panel")) return;
       const record = appState.records.find((entry) => entry.id === appState.activeRecordId);
       if (!record) return;
 
-      const statusSelect = document.getElementById("detailStatusSelect");
-      const officeNotes = document.getElementById("detailOfficeNotes");
-      record.status = statusSelect ? statusSelect.value : record.status;
-      record.officeNotes = officeNotes ? officeNotes.value.trim() : record.officeNotes;
-      record.updatedAt = new Date().toISOString();
+      try {
+        setBusy(true, "Saving review...");
+        const statusSelect = document.getElementById("detailStatusSelect");
+        const officeNotes = document.getElementById("detailOfficeNotes");
+        const { error } = await appState.supabase
+          .from(TABLE_NAME)
+          .update({
+            status: statusSelect ? statusSelect.value : record.status,
+            office_notes: officeNotes ? officeNotes.value.trim() : record.officeNotes,
+            updated_by: appState.user.id
+          })
+          .eq("id", record.id)
+          .eq("office_slug", OFFICE_SLUG);
 
-      saveRecords();
-      renderAll();
-      openRecordDetail(record.id);
-      showToast("Internal review notes and status were saved.", "success", "Review Updated");
+        if (error) throw error;
+        await fetchRecords(false);
+        openRecordDetail(record.id);
+        showToast("Internal review notes and status were saved.", "success", "Review Updated");
+      } catch (error) {
+        showToast(getErrorMessage(error), "error", "Review Save Failed");
+      } finally {
+        setBusy(false);
+      }
     }
 
     function openActiveRecordForEditing() {
@@ -2043,9 +2173,7 @@
     }
 
     function exportActiveRecord() {
-      if (appState.activeRecordId) {
-        exportSingleRecord(appState.activeRecordId);
-      }
+      if (appState.activeRecordId) exportSingleRecord(appState.activeRecordId);
     }
 
     function deleteActiveRecordFromDetail() {
@@ -2053,13 +2181,13 @@
       confirmDeleteRecord(appState.activeRecordId, true);
     }
 
-    function confirmDeleteRecord(recordId, closeDetailAfter) {
+    function confirmDeleteRecord(recordId, closeDetailAfter = false) {
       const record = appState.records.find((entry) => entry.id === recordId);
       if (!record) return;
       openConfirmModal({
-        title: "Delete Saved Application",
-        text: `Remove the saved application for ${record.characterName}?`,
-        meta: "This action will remove the selected file from the current ledger.",
+        title: "Delete Shared Application",
+        text: `Remove the shared application for ${record.characterName}?`,
+        meta: "This action deletes the selected record from the Supabase office ledger.",
         body: `
           <div class="import-summary">
             <div class="count-line"><span>Character</span><strong>${escapeHtml(record.characterName)}</strong></div>
@@ -2068,26 +2196,40 @@
           </div>
         `,
         confirmLabel: "Delete Record",
-        onConfirm: () => {
-          appState.records = appState.records.filter((entry) => entry.id !== recordId);
-          saveRecords();
-          renderAll();
-          closeModal(el.confirmModalBackdrop);
-          if (closeDetailAfter) closeModal(el.detailModalBackdrop);
-          showToast("The application file was deleted.", "info", "Record Deleted");
+        onConfirm: async () => {
+          if (!requireSignedInAction("delete a record")) return;
+          try {
+            setBusy(true, "Deleting shared record...");
+            const { error } = await appState.supabase
+              .from(TABLE_NAME)
+              .delete()
+              .eq("id", recordId)
+              .eq("office_slug", OFFICE_SLUG);
+            if (error) throw error;
+            closeModal(el.confirmModalBackdrop);
+            if (closeDetailAfter) closeModal(el.detailModalBackdrop);
+            await fetchRecords(false);
+            showToast("The shared application was deleted.", "info", "Record Deleted");
+          } catch (error) {
+            showToast(getErrorMessage(error), "error", "Delete Failed");
+          } finally {
+            setBusy(false);
+          }
         }
       });
     }
 
     function confirmClearAll() {
+      if (!requireSignedInAction("clear office data")) return;
       if (!appState.records.length) {
-        showToast("There are no saved records to clear.", "info", "Nothing to Clear");
+        showToast("There are no shared records to clear.", "info", "Nothing to Clear");
         return;
       }
+
       openConfirmModal({
-        title: "Clear All Saved Data",
-        text: "Remove every saved application from this browser ledger?",
-        meta: "Export first if you want a backup before clearing the ledger.",
+        title: "Clear Office Data",
+        text: "Remove every shared application from the office ledger?",
+        meta: "Export first if you want a backup before clearing the shared dataset.",
         body: `
           <div class="import-summary">
             <div class="count-line"><span>Records to remove</span><strong>${appState.records.length}</strong></div>
@@ -2095,13 +2237,20 @@
           </div>
         `,
         confirmLabel: "Clear Everything",
-        onConfirm: () => {
-          appState.records = [];
-          if (appState.storageAvailable) localStorage.removeItem(STORAGE_KEY);
-          renderAll();
-          closeModal(el.confirmModalBackdrop);
-          closeModal(el.detailModalBackdrop);
-          showToast("All saved records were cleared from this browser.", "info", "Ledger Cleared");
+        onConfirm: async () => {
+          try {
+            setBusy(true, "Clearing office data...");
+            const { error } = await appState.supabase.from(TABLE_NAME).delete().eq("office_slug", OFFICE_SLUG);
+            if (error) throw error;
+            closeModal(el.confirmModalBackdrop);
+            closeModal(el.detailModalBackdrop);
+            await fetchRecords(false);
+            showToast("All shared office records were cleared.", "info", "Office Ledger Cleared");
+          } catch (error) {
+            showToast(getErrorMessage(error), "error", "Clear Failed");
+          } finally {
+            setBusy(false);
+          }
         }
       });
     }
@@ -2124,19 +2273,15 @@
         try {
           const parsed = JSON.parse(reader.result);
           const importedRecords = Array.isArray(parsed) ? parsed : Array.isArray(parsed.records) ? parsed.records : null;
-          if (!importedRecords) {
-            throw new Error("Invalid structure");
-          }
+          if (!importedRecords) throw new Error("Invalid structure");
 
-          const cleaned = importedRecords.map(sanitizeImportedRecord).filter(Boolean);
-          if (!cleaned.length) {
-            throw new Error("No valid records");
-          }
+          const cleaned = importedRecords.map(sanitizeImportedUiRecord).filter(Boolean);
+          if (!cleaned.length) throw new Error("No valid records");
 
           appState.pendingImport = {
             fileName: file.name,
-            total: cleaned.length,
             records: cleaned,
+            total: cleaned.length,
             exportedAt: parsed.exportedAt || null
           };
 
@@ -2156,39 +2301,48 @@
       reader.readAsText(file);
     }
 
-    function applyImport(mode) {
+    async function applyImport(mode) {
+      if (!requireSignedInAction("import shared records")) return;
       if (!appState.pendingImport) return;
-      const imported = appState.pendingImport.records.map((record) => ({ ...record }));
 
-      if (mode === "replace") {
-        appState.records = imported;
-      } else {
-        const existingIds = new Set(appState.records.map((record) => record.id));
-        imported.forEach((record) => {
-          if (existingIds.has(record.id)) {
-            record.id = createId();
-          }
-          existingIds.add(record.id);
-          appState.records.push(record);
-        });
+      try {
+        setBusy(true, mode === "replace" ? "Replacing office records..." : "Importing shared records...");
+        const rows = appState.pendingImport.records.map((record) => ({
+          ...uiDataToDbPayload(record),
+          status: record.status || DEFAULT_STATUS,
+          office_notes: record.officeNotes || "",
+          created_by: appState.user.id,
+          updated_by: appState.user.id
+        }));
+
+        if (mode === "replace") {
+          const { error: deleteError } = await appState.supabase.from(TABLE_NAME).delete().eq("office_slug", OFFICE_SLUG);
+          if (deleteError) throw deleteError;
+        }
+
+        const { error } = await appState.supabase.from(TABLE_NAME).insert(rows);
+        if (error) throw error;
+
+        closeModal(el.importModalBackdrop);
+        appState.pendingImport = null;
+        await fetchRecords(false);
+        showToast(mode === "replace" ? "The office ledger was replaced with the imported file." : "Imported records were merged into the office ledger.", "success", "Import Complete");
+      } catch (error) {
+        showToast(getErrorMessage(error), "error", "Import Failed");
+      } finally {
+        setBusy(false);
       }
-
-      appState.records.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      saveRecords();
-      renderAll();
-      closeModal(el.importModalBackdrop);
-      showToast(mode === "replace" ? "The current ledger was replaced with the imported file." : "Imported records were merged into the current ledger.", "success", "Import Complete");
-      appState.pendingImport = null;
     }
 
     function exportAllRecords() {
       if (!appState.records.length) {
-        showToast("There are no saved records to export.", "info", "Nothing to Export");
+        showToast("There are no shared records to export.", "info", "Nothing to Export");
         return;
       }
       const payload = {
         app: "Volkov Lending & Financial",
         exportedAt: new Date().toISOString(),
+        officeSlug: OFFICE_SLUG,
         count: appState.records.length,
         records: appState.records
       };
@@ -2202,11 +2356,11 @@
       const payload = {
         app: "Volkov Lending & Financial",
         exportedAt: new Date().toISOString(),
+        officeSlug: OFFICE_SLUG,
         count: 1,
         records: [record]
       };
-      const slug = slugify(record.characterName || "record");
-      downloadJson(payload, `volkov-${slug}-${record.id}.json`);
+      downloadJson(payload, `volkov-${slugify(record.characterName || "record")}-${record.id}.json`);
       showToast("A single-record export was prepared.", "success", "Export Ready");
     }
 
@@ -2222,10 +2376,10 @@
       setTimeout(() => URL.revokeObjectURL(url), 250);
     }
 
-    function sanitizeImportedRecord(record) {
+    function sanitizeImportedUiRecord(record) {
       if (!record || typeof record !== "object") return null;
-      const sanitized = {
-        id: String(record.id || createId()),
+      const cleaned = {
+        id: String(record.id || ""),
         characterName: String(record.characterName || "").trim(),
         soulId: String(record.soulId || "").trim(),
         inCityPhone: String(record.inCityPhone || "").trim(),
@@ -2246,18 +2400,108 @@
         createdAt: safeDate(record.createdAt),
         updatedAt: safeDate(record.updatedAt || record.createdAt)
       };
-
-      if (!sanitized.characterName || !sanitized.soulId || !sanitized.requestType) return null;
-      return sanitized;
+      if (!cleaned.characterName || !cleaned.soulId || !cleaned.requestType) return null;
+      return cleaned;
     }
 
-    function safeDate(value) {
-      const timestamp = new Date(value);
-      return Number.isNaN(timestamp.getTime()) ? new Date().toISOString() : timestamp.toISOString();
+    function mapDbRecordToUiRecord(row) {
+      return {
+        id: row.id,
+        officeSlug: row.office_slug,
+        characterName: row.character_name,
+        soulId: row.soul_id,
+        inCityPhone: row.in_city_phone,
+        occupationEmployer: row.occupation_employer,
+        businessName: row.business_name || "",
+        requestType: row.request_type,
+        amountRequested: Number(row.amount_requested) || 0,
+        incomeAmount: Number(row.income_amount) || 0,
+        incomeFrequency: row.income_frequency || "Weekly",
+        purposeOfFunds: row.purpose_of_funds || "",
+        existingDebts: row.existing_debts || "",
+        collateralOffered: row.collateral_offered || "",
+        repaymentPlan: row.repayment_plan || "",
+        additionalNotes: row.additional_notes || "",
+        referralName: row.referral_name || "",
+        status: row.status || DEFAULT_STATUS,
+        officeNotes: row.office_notes || "",
+        createdAt: safeDate(row.created_at),
+        updatedAt: safeDate(row.updated_at),
+        createdBy: row.created_by || "",
+        updatedBy: row.updated_by || ""
+      };
     }
 
-    function createId() {
-      return "VLF-" + Math.random().toString(36).slice(2, 8).toUpperCase() + "-" + Date.now().toString().slice(-6);
+    function uiDataToDbPayload(data) {
+      return {
+        office_slug: OFFICE_SLUG,
+        character_name: data.characterName,
+        soul_id: data.soulId,
+        in_city_phone: data.inCityPhone,
+        occupation_employer: data.occupationEmployer,
+        business_name: data.businessName || null,
+        request_type: data.requestType,
+        amount_requested: Number(data.amountRequested) || 0,
+        income_amount: Number(data.incomeAmount) || 0,
+        income_frequency: data.incomeFrequency || "Weekly",
+        purpose_of_funds: data.purposeOfFunds,
+        existing_debts: data.existingDebts,
+        collateral_offered: data.collateralOffered || null,
+        repayment_plan: data.repaymentPlan,
+        additional_notes: data.additionalNotes || null,
+        referral_name: data.referralName || null,
+        status: data.status || DEFAULT_STATUS,
+        office_notes: data.officeNotes || ""
+      };
+    }
+
+    function requireSignedInAction(actionLabel) {
+      if (!CONFIG_READY || !appState.supabase) {
+        showToast("Supabase is not configured yet.", "error", "Configuration Required");
+        return false;
+      }
+      if (!appState.user) {
+        showToast(`Sign in before trying to ${actionLabel}.`, "error", "Staff Session Required");
+        return false;
+      }
+      return true;
+    }
+
+    function setBusy(isBusy, message) {
+      appState.loading = isBusy;
+      el.refreshBtn.disabled = isBusy;
+      el.signInBtn.disabled = isBusy;
+      el.signOutBtn.disabled = isBusy;
+      el.submitBtn.disabled = isBusy || !appState.user;
+      el.clearAllBtn.disabled = isBusy || !appState.user;
+      el.importBtn.disabled = isBusy || !appState.user;
+      if (isBusy && message) {
+        el.connectionDot.className = "dot";
+        el.connectionTitle.textContent = message;
+        el.connectionText.textContent = "Please wait while the shared office ledger is updated.";
+      } else {
+        updateConnectionUi();
+      }
+    }
+
+    function getValue(id) {
+      const input = document.getElementById(id);
+      return input ? input.value.trim() : "";
+    }
+
+    function parseMoneyInput(value) {
+      if (!value) return 0;
+      const numeric = String(value).replace(/[^0-9.-]/g, "");
+      const amount = Number(numeric);
+      return Number.isFinite(amount) ? amount : 0;
+    }
+
+    function setFieldError(fieldName, message) {
+      const field = document.querySelector(`[data-field="${fieldName}"]`);
+      const error = document.getElementById(`error-${fieldName}`);
+      if (!field || !error) return;
+      error.textContent = message;
+      field.classList.toggle("invalid", Boolean(message));
     }
 
     function formatCurrency(value) {
@@ -2280,6 +2524,11 @@
       }).format(date);
     }
 
+    function safeDate(value) {
+      const timestamp = new Date(value);
+      return Number.isNaN(timestamp.getTime()) ? new Date().toISOString() : timestamp.toISOString();
+    }
+
     function slugify(value) {
       return String(value || "record")
         .toLowerCase()
@@ -2294,8 +2543,7 @@
     }
 
     function renderStatusBadge(status) {
-      const badgeClass = slugify(status);
-      return `<span class="badge ${badgeClass}">${escapeHtml(status || DEFAULT_STATUS)}</span>`;
+      return `<span class="badge ${slugify(status)}">${escapeHtml(status || DEFAULT_STATUS)}</span>`;
     }
 
     function openModal(backdrop) {
@@ -2323,6 +2571,11 @@
         toast.style.transform = "translateY(8px)";
         setTimeout(() => toast.remove(), 180);
       }, 3600);
+    }
+
+    function getErrorMessage(error) {
+      const message = error && typeof error === "object" ? (error.message || error.error_description || error.details) : String(error || "");
+      return message || "An unexpected error occurred.";
     }
 
     function escapeHtml(value) {
